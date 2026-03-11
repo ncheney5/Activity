@@ -1,4 +1,4 @@
 # Activity
 
 ## Firebase Project Link:
-https://console.firebase.google.com/project/nigelsmith-pf/
+[CIT170-Activity-Votes](https://console.firebase.google.com/project/cit170-activity-votes/)
