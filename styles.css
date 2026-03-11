@@ -1,0 +1,184 @@
+body {
+    font-family: "Electrolize";
+    margin: 0 auto;
+    text-align: center;
+    width: 800px;
+}
+
+h1 {
+    font-family: "Eagle lake";
+    color: #CC4716;
+}
+
+h2 {
+    font-family: "Electrolize";
+    color: #0D4157;
+}
+
+#logo {
+    margin: auto;
+  grid-row: 2/4;
+  grid-column: 1;
+  width: 200px;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+#logo img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.2);
+}
+
+.hero {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+#hero {
+    grid-row: 1/3;
+    grid-column: 1;
+}
+
+header {
+    display: grid;
+    grid-template-rows: 150px 100px 100px auto;
+}
+
+nav {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-self: center;
+    background-color: #0D4157;
+    border-radius: 10px;
+}
+
+nav a {
+    color: #F9F9F1;
+    text-decoration: none;
+    padding: 10px;
+    align-self: center;
+}
+
+nav a:hover {
+    background-color: #CC4716;
+    color: #F9F9F1;
+    border-radius: 7px;
+    margin: 5px
+}
+
+#intro-text {
+    margin-bottom: 40px;
+}
+
+#vidBox{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: auto;
+    width: 800px;
+    column-gap: 15px;
+}
+
+#vidBox iframe{
+    padding: 10px;
+    justify-self: center;
+}
+
+#vidBox h1{
+    float: top;
+}
+
+.signup-card {
+    width: 380px;
+    background: #fff;
+    border: 2px solid #ccc;
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 0 10px #ddd;
+    justify-self: center;
+}
+
+.signup-logo {
+    width: 80px;
+    display: block;
+    margin: 0 auto 10px auto;
+}
+
+.signup-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 26px;
+}
+
+.signup-form label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.signup-form input {
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    padding: 6px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+}
+
+.availability-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 10px 0 20px 0;
+}
+
+.availability-grid .slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 0;
+    border: 1px solid #555;
+    border-radius: 6px;
+    background: #f9f9f9;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.availability-grid .slot input[type="checkbox"] {
+    margin-bottom: 4px;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.signup-btn {
+    padding: 10px;
+    width: 100%;
+    border: none;
+    background: #1e88e5;
+    color: white;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.signup-btn:hover {
+    background: #1565c0;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+}
+
+footer {
+    margin-top: 40px;
+}
