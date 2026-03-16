@@ -65,6 +65,17 @@ nav {
     margin-bottom: 12px;
 }
 
+nav a.sign-in {
+    background-color: var(--color-accent);
+    color: var(--color-light);
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+nav a.sign-in:hover {
+    background-color: #a8390f;
+}
+
 nav ul {
     list-style: none;
     display: inline-flex;
