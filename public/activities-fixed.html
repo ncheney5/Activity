@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fishy Activities | Activities</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .activities-section {
+            max-width: 900px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .activities-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #1a3a5c;
+            border-bottom: 3px solid #1a3a5c;
+            padding-bottom: 0.5rem;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .activity-card {
+            display: grid;
+            grid-template-columns: 140px 1fr auto;
+            grid-template-rows: auto auto;
+            gap: 0.5rem 1.25rem;
+            background: #fff;
+            border: 1px solid #d0dce8;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            cursor: pointer;
+            transition: box-shadow 0.2s, transform 0.15s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .activity-card:hover {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.13);
+            transform: translateY(-2px);
+        }
+
+        .activity-card img {
+            grid-row: 1 / 3;
+            width: 140px;
+            height: 130px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-body {
+            padding: 0.85rem 0 0.5rem 0;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #1a3a5c;
+            margin: 0 0 0.2rem 0;
+        }
+
+        .card-time {
+            font-size: 0.82rem;
+            color: #5a7a99;
+            margin: 0 0 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .card-time::before {
+            content: "🕒";
+            font-size: 0.85rem;
+        }
+
+        .card-description {
+            font-size: 0.9rem;
+            color: #444;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .card-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1.25rem 0.85rem 0;
+        }
+
+        .btn-going,
+        .btn-notgoing {
+            width: 42px;
+            height: 42px;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .btn-going {
+            background: #e6f4ea;
+            color: #2e7d32;
+        }
+
+        .btn-going:hover,
+        .btn-going.active {
+            background: #2e7d32;
+            color: #fff;
+            transform: scale(1.12);
+        }
+
+        .btn-notgoing {
+            background: #fdecea;
+            color: #c62828;
+        }
+
+        .btn-notgoing:hover,
+        .btn-notgoing.active {
+            background: #c62828;
+            color: #fff;
+            transform: scale(1.12);
+        }
+
+        .rsvp-status {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-align: center;
+            color: #888;
+            min-height: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div id="hero">
+            <img class="hero-img" src="images/hero.jpeg" alt="BYU-Idaho Campus">
+            <a id="logo" href="main.html" aria-label="Fishy Activities Home">
+                <img src="images/logo.png" alt="Fishy Activities Logo" />
+            </a>
+        </div>
+
+        <nav aria-label="Main navigation">
+            <ul>
+                <li><a href="main.html">Home</a></li>
+                <li><a href="activities.html">Activities</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a class="sign-in" href="signin.html">Sign In</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="activities-section">
+            <h2>Upcoming Activities</h2>
+            <div class="activity-list">
+
+                <div class="activity-card" onclick="goToActivity('kayaking')">
+                    <img src="images/kayaking.webp" alt="Kayaking">
+                    <div class="card-body">
+                        <h3 class="card-title">Kayaking at Rexburg Rapids</h3>
+                        <p class="card-time">Saturday, March 22 · 10:00 AM</p>
+                        <p class="card-description">
+                            Join us for a relaxing kayak trip down the river. All skill levels welcome —
+                            equipment provided. Meet at the south boat launch.
+                        </p>
+                    </div>
+                    <div class="card-actions" onclick="event.stopPropagation()">
+                        <button class="btn-going" onclick="rsvp(this, 'going', 'status-1')" title="I'm going">✓</button>
+                        <button class="btn-notgoing" onclick="rsvp(this, 'notgoing', 'status-1')" title="Not going">✕</button>
+                        <span class="rsvp-status" id="status-1"></span>
+                    </div>
+                </div>
+
+                <div class="activity-card" onclick="goToActivity('bonfire')">
+                    <img src="images/Bonfire.webp" alt="Bonfire">
+                    <div class="card-body">
+                        <h3 class="card-title">Bonfire & S'mores Night</h3>
+                        <p class="card-time">Friday, March 28 · 7:30 PM</p>
+                        <p class="card-description">
+                            Gather around the fire for s'mores, music, and good company.
+                            Bring a blanket and your best campfire stories!
+                        </p>
+                    </div>
+                    <div class="card-actions" onclick="event.stopPropagation()">
+                        <button class="btn-going" onclick="rsvp(this, 'going', 'status-2')" title="I'm going">✓</button>
+                        <button class="btn-notgoing" onclick="rsvp(this, 'notgoing', 'status-2')" title="Not going">✕</button>
+                        <span class="rsvp-status" id="status-2"></span>
+                    </div>
+                </div>
+
+                <div class="activity-card" onclick="goToActivity('volleyball')">
+                    <img src="images/volleyball.webp" alt="Volleyball">
+                    <div class="card-body">
+                        <h3 class="card-title">Beach Volleyball Tournament</h3>
+                        <p class="card-time">Sunday, March 30 · 2:00 PM</p>
+                        <p class="card-description">
+                            Form a team of 4 and compete in our annual sand volleyball tournament.
+                            Prizes for 1st and 2nd place. Sign up before Friday!
+                        </p>
+                    </div>
+                    <div class="card-actions" onclick="event.stopPropagation()">
+                        <button class="btn-going" onclick="rsvp(this, 'going', 'status-3')" title="I'm going">✓</button>
+                        <button class="btn-notgoing" onclick="rsvp(this, 'notgoing', 'status-3')" title="Not going">✕</button>
+                        <span class="rsvp-status" id="status-3"></span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Copyright &copy; 2026 Fishy Activities</p>
+    </footer>
+
+    <script>
+        function goToActivity(activityId) {
+            window.location.href = `activitiesdescription.html?activity=${activityId}`;
+        }
+
+        function rsvp(btn, type, statusId) {
+            const actions = btn.closest('.card-actions');
+            const goingBtn = actions.querySelector('.btn-going');
+            const notBtn = actions.querySelector('.btn-notgoing');
+            const status = document.getElementById(statusId);
+
+            if (btn.classList.contains('active')) {
+                btn.classList.remove('active');
+                status.textContent = '';
+                return;
+            }
+
+            goingBtn.classList.remove('active');
+            notBtn.classList.remove('active');
+            btn.classList.add('active');
+
+            if (type === 'going') {
+                status.textContent = "Going!";
+                status.style.color = "#2e7d32";
+            } else {
+                status.textContent = "Not going";
+                status.style.color = "#c62828";
+            }
+        }
+    </script>
+
+</body>
+</html>
