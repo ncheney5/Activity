@@ -3,52 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover and share fun activities for students at BYU-Idaho.">
     <title>Fishy Activities | Home</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header> 
 
+    <header>
         <div id="hero">
-            <img class="hero" src="images/hero.jpeg" alt="BYU-Idaho Campus">
-        </div> 
+            <img class="hero-img" src="images/hero.jpeg" alt="BYU-Idaho Campus">
+            <a id="logo" href="main.html" aria-label="Fishy Activities Home">
+                <img src="images/logo.png" alt="Fishy Activities Logo" />
+            </a>
+        </div>
 
-        <a id="logo" href="main.html">
-            <img src="images/logo.png" alt="Logo" />
-        </a>
-        
-        <nav>
-            <a href="main.html">Home</a>
-            <a href="activities.html">Activities</a>
-            <a href="about.html">about</a>
+        <nav aria-label="Main navigation">
+            <ul>
+                <li><a href="main.html">Home</a></li>
+                <li><a href="activities.html">Activities</a></li>
+                <li><a href="about.html">About</a></li>
+                
+            </ul>
         </nav>
-
     </header>
 
     <main>
-
-        <div id="intro-text">
+        <section id="intro-text">
             <h1>What is Fishy Fish Activities?</h1>
-            <h2>This website is designed to help students discover and share fun activities they can do in their free time. It serves as a collection of ideas where students can browse different activities. The goal of the site is to make it easier for students to find enjoyable things to do, meet new people, and balance school life with fun experiences. Users can search for activities, explore suggestions from other students, and quickly find something exciting to try when they have free time.</h2>
-        </div>
+            <p>This website is designed to help students discover and share fun activities in their free time. Browse ideas, explore suggestions from other students, and find something exciting to try — whether you want to meet new people or just balance school life with a little fun.</p>
+        </section>
 
-        <div id="highlight-video">
-            <iframe 
-                width="800" 
-                height="450" 
-                src="https://www.youtube.com/embed/GWAYqepkpLI?si=oVAA2WVsCJVN6cbx&amp;start=28&amp;autoplay=1&amp;mute=1" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin" 
-                allowfullscreen>
-            </iframe>
-        </div>
-
+        <section id="highlight-video">
+            <div class="video-wrapper">
+                <iframe
+                    src="https://www.youtube.com/embed/GWAYqepkpLI?si=oVAA2WVsCJVN6cbx&start=28&autoplay=1&mute=1"
+                    title="Fishy Activities highlight reel"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
     </main>
 
     <footer>
-        <p>Copyright © 2026 Fishy Activities</p>
+        <p>Copyright &copy; 2026 Fishy Activities</p>
     </footer>
 
 </body>
