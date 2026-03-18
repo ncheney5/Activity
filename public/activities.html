@@ -5,188 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fishy Activities | Activities</title>
     <link rel="stylesheet" href="styles.css" />
-    <style>
-        .activities-section {
-            margin: 24px 0 40px;
-            padding: 0 4px;
-        }
-
-        .activities-section h2 {
-            color: var(--color-accent);
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            font-family: 'Electrolize', sans-serif;
-        }
-
-        .activity-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .activity-card {
-            display: grid;
-            grid-template-columns: 110px 1fr auto;
-            background: #fff;
-            border: 1px solid #d0dce8;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-            cursor: pointer;
-            transition: box-shadow 0.2s, transform 0.15s;
-            text-align: left;
-        }
-
-        .activity-card:hover {
-            box-shadow: 0 6px 20px rgba(0,0,0,0.13);
-            transform: translateY(-2px);
-        }
-
-        .activity-card img {
-            width: 110px;
-            height: 100%;
-            min-height: 110px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .card-body {
-            padding: 0.75rem;
-        }
-
-        .card-title {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--color-primary);
-            margin: 0 0 0.2rem 0;
-            font-family: 'Electrolize', sans-serif;
-        }
-
-        .card-time {
-            font-size: 0.8rem;
-            color: #5a7a99;
-            margin: 0 0 0.4rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .card-time::before {
-            content: "🕒";
-        }
-
-        .card-description {
-            font-size: 0.88rem;
-            color: #444;
-            line-height: 1.5;
-            margin: 0;
-        }
-
-        .card-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem;
-            border-left: 1px solid #e8eef4;
-            width: 75px;
-            flex-shrink: 0;
-        }
-
-        .btn-going,
-        .btn-notgoing {
-            width: 38px;
-            height: 38px;
-            border: none;
-            border-radius: 50%;
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s, transform 0.15s;
-        }
-
-        .btn-going {
-            background: #e6f4ea;
-            color: #2e7d32;
-        }
-
-        .btn-going:hover,
-        .btn-going.active {
-            background: #2e7d32;
-            color: #fff;
-            transform: scale(1.12);
-        }
-
-        .btn-notgoing {
-            background: #fdecea;
-            color: #c62828;
-        }
-
-        .btn-notgoing:hover,
-        .btn-notgoing.active {
-            background: #c62828;
-            color: #fff;
-            transform: scale(1.12);
-        }
-
-        .rsvp-status {
-            font-size: 0.68rem;
-            font-weight: 600;
-            text-align: center;
-            color: #888;
-            min-height: 1rem;
-            font-family: 'Electrolize', sans-serif;
-            width: 100%;
-            word-break: break-word;
-        }
-
-        @media (min-width: 480px) {
-            .activities-section h2 {
-                font-size: 1.6rem;
-            }
-
-            .activity-card {
-                grid-template-columns: 130px 1fr auto;
-            }
-
-            .activity-card img {
-                width: 130px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .activities-section h2 {
-                font-size: 1.9rem;
-            }
-
-            .activities-section {
-                margin: 36px 0 48px;
-                padding: 0px;
-            }
-
-            .activity-card {
-                grid-template-columns: 150px 1fr auto;
-            }
-
-            .activity-card img {
-                width: 150px;
-            }
-
-            .card-title {
-                font-size: 1.1rem;
-            }
-        }
-    </style>
 </head>
 <body>
 
     <header>
         <div id="hero">
             <img class="hero-img" src="images/hero.jpeg" alt="BYU-Idaho Campus">
-            <a id="logo" href="main.html" aria-label="Fishy Activities Home">
+            <a id="logo" href="index.html" aria-label="Fishy Activities Home">
                 <img src="images/logo.png" alt="Fishy Activities Logo" />
             </a>
         </div>
@@ -194,16 +19,16 @@
         <nav aria-label="Main navigation">
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="activities-fixed.html">Activities</a></li>
+                <li><a href="activities.html">Activities</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a class="sign-in" href="signin.html">Sign In</a></li>
+                <li><a class="sign-in" href="sign.html">Sign In</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section class="activities-section">
-            <h2>Upcoming Activities</h2>
+            <h1>Upcoming Activities</h1>
             <div class="activity-list">
 
                 <div class="activity-card" onclick="goToActivity('kayaking')">
