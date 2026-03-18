@@ -1,184 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
+
+:root {
+    --color-primary: #0D4157;
+    --color-accent:  #CC4716;
+    --color-light:   #F9F9F1;
+    --max-width:     800px;
+    --hero-height:   150px;
+    --logo-size:     140px;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    font-family: "Electrolize";
+    font-family: 'Electrolize', sans-serif;
+    color: var(--color-primary);
+    max-width: var(--max-width);
     margin: 0 auto;
+    padding: 0 12px;
     text-align: center;
-    width: 800px;
-}
-
-h1 {
-    font-family: "Eagle lake";
-    color: #CC4716;
-}
-
-h2 {
-    font-family: "Electrolize";
-    color: #0D4157;
-}
-
-#logo {
-    margin: auto;
-  grid-row: 2/4;
-  grid-column: 1;
-  width: 200px;
-  height: 100%;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-#logo img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.2);
-}
-
-.hero {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
 }
 
 #hero {
-    grid-row: 1/3;
-    grid-column: 1;
+    position: relative;
+    width: 100%;
+    height: var(--hero-height);
+    overflow: visible;
 }
 
-header {
-    display: grid;
-    grid-template-rows: 150px 100px 100px auto;
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0 0 8px 8px;
+}
+
+#logo {
+    position: absolute;
+    bottom: calc(var(--logo-size) / -2);
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--logo-size);
+    height: var(--logo-size);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid white;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    display: block;
+    background: white;
+}
+
+#logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 nav {
-    display: grid;
-    grid-template-columns: 100px 100px 100px;
-    grid-template-rows: 50px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    justify-self: center;
-    background-color: #0D4157;
-    border-radius: 10px;
-}
-
-nav a {
-    color: #F9F9F1;
-    text-decoration: none;
-    padding: 10px;
-    align-self: center;
-}
-
-nav a:hover {
-    background-color: #CC4716;
-    color: #F9F9F1;
-    border-radius: 7px;
-    margin: 5px
-}
-
-#intro-text {
-    margin-bottom: 40px;
-}
-
-#vidBox{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: auto;
-    width: 800px;
-    column-gap: 15px;
-}
-
-#vidBox iframe{
-    padding: 10px;
-    justify-self: center;
-}
-
-#vidBox h1{
-    float: top;
-}
-
-.signup-card {
-    width: 380px;
-    background: #fff;
-    border: 2px solid #ccc;
-    border-radius: 14px;
-    padding: 25px;
-    box-shadow: 0 0 10px #ddd;
-    justify-self: center;
-}
-
-.signup-logo {
-    width: 80px;
-    display: block;
-    margin: 0 auto 10px auto;
-}
-
-.signup-title {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 26px;
-}
-
-.signup-form label {
-    display: block;
+    margin-top: calc(var(--logo-size) / 2 + 16px);
     margin-bottom: 12px;
+}
+
+nav a.sign-in {
+    background-color: var(--color-accent);
+    color: var(--color-light);
+    border-radius: 7px;
     font-weight: bold;
 }
 
-.signup-form input {
-    display: block;
-    width: 100%;
-    margin-top: 4px;
-    padding: 6px;
-    border: 1px solid #aaa;
-    border-radius: 6px;
+nav a.sign-in:hover {
+    background-color: #a8390f;
 }
 
-.availability-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin: 10px 0 20px 0;
-}
-
-.availability-grid .slot {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+nav ul {
+    list-style: none;
+    display: inline-flex;
+    flex-wrap: wrap;
     justify-content: center;
-    padding: 12px 0;
-    border: 1px solid #555;
-    border-radius: 6px;
-    background: #f9f9f9;
-    font-size: 14px;
-    cursor: pointer;
+    gap: 4px;
+    background-color: var(--color-primary);
+    border-radius: 10px;
+    padding: 4px;
 }
 
-.availability-grid .slot input[type="checkbox"] {
-    margin-bottom: 4px;
-    transform: scale(1.2);
-    cursor: pointer;
+nav a {
+    color: var(--color-light);
+    text-decoration: none;
+    padding: 8px 16px;
+    display: block;
+    border-radius: 7px;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
 }
 
-.signup-btn {
-    padding: 10px;
+nav a:hover,
+nav a:focus {
+    background-color: var(--color-accent);
+    outline: none;
+}
+
+#intro-text {
+    margin: 24px 0 32px;
+    padding: 0 4px;
+}
+
+h1 {
+    color: var(--color-accent);
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+}
+
+p {
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    border: none;
-    background: #1e88e5;
-    color: white;
-    font-size: 16px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.signup-btn:hover {
-    background: #1565c0;
-}
-
-.copyright {
-    text-align: center;
-    margin-top: 15px;
-    font-size: 12px;
-    color: #666;
+    height: 100%;
+    border: 0;
 }
 
 footer {
     margin-top: 40px;
+    padding: 16px 0;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+@media (min-width: 480px) {
+    :root {
+        --hero-height: 180px;
+        --logo-size: 160px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    nav a {
+        font-size: 1rem;
+        padding: 8px 20px;
+    }
+}
+
+@media (min-width: 768px) {
+    :root {
+        --hero-height: 220px;
+        --logo-size: 180px;
+    }
+
+    h1 {
+        font-size: 1.9rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    #intro-text {
+        margin: 36px 0 48px;
+    }
 }
