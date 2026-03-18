@@ -5,7 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fishy Activities | Description</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+        main {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        text-align: center;
+        }
+
+        #title {
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+        }
+
+        #location,
+        #time {
+            font-size: 1rem;
+            color: #5a7a99;
+            margin: 4px 0;
+        }
+
+        #image {
+            width: 70%;
+            max-width: 300px;
+            border-radius: 12px;
+            margin: 20px auto;
+            display: block;
+        }
+
+        #description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+    </style>
 </head>
+
 <body>
     <header>
         <div id="hero">
@@ -26,18 +65,61 @@
     </header>
 
     <main>
-        <h2>160 Cultural Hall</h2>
-        <h2>7:00 - 10:00 PM</h2>
+        <h1 id="title">Activity Title</h1>
+        <h2 id="location">Location</h2>
+        <h2 id="time">Time</h2>
 
-        <img src="images/example.png" alt="Activity Photo">
-        <p>
-            Activity Description: Join us for a night of laser tag in the Taylor Building
+        <img id="image" src="" alt="Activity Photo">
+        <p id="description">
+            Activity description goes here
         </p>
     </main>
 
     <footer>
         <p>Copyright © 2026 Fishy Activities</p>
     </footer>
+
+    <script>
+        const activities = {
+            kayaking: {
+                title: "Kayaking at Rexburg Rapids",
+                location: "South Boat Launch",
+                time: "Saturday, March 22 · 10:00 AM",
+                image: "images/kayaking.webp",
+                description: "Join us for a relaxing kayak trip down the river. All skill levels welcome — equipment provided."
+            },
+            bonfire: {
+                title: "Bonfire & S'mores Night",
+                location: "Outdoor Fire Pit",
+                time: "Friday, March 28 · 7:30 PM",
+                image: "images/Bonfire.webp",
+                description: "Gather around the fire for s'mores, music, and good company."
+            },
+            volleyball: {
+                title: "Beach Volleyball Tournament",
+                location: "Campus Sand Courts",
+                time: "Sunday, March 30 · 2:00 PM",
+                image: "images/volleyball.webp",
+                description: "Form a team of 4 and compete in our annual tournament."
+            }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const activityId = params.get("activity");
+
+        if (activities[activityId]) {
+            const activity = activities[activityId];
+
+            document.getElementById("title").textContent = activity.title;
+            document.getElementById("location").textContent = activity.location;
+            document.getElementById("time").textContent = activity.time;
+            document.getElementById("description").textContent = activity.description;
+            
+            const img = document.getElementById("image");
+            img.src = activity.image;
+            img.alt = activity.title;
+        }
+    </script>
 
 </body>
 </html>
