@@ -3,36 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fishy Activities | Home</title>
+    <title>Fishy Activities | Activities</title>
     <link rel="stylesheet" href="styles.css" />
     <style>
-        /* ── Activities Section ── */
         .activities-section {
-            max-width: 900px;
-            margin: 2.5rem auto;
-            padding: 0 1.5rem;
+            margin: 24px 0 40px;
+            padding: 0 4px;
         }
 
         .activities-section h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: #1a3a5c;
-            border-bottom: 3px solid #1a3a5c;
-            padding-bottom: 0.5rem;
+            color: var(--color-accent);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            font-family: 'Electrolize', sans-serif;
         }
 
         .activity-list {
             display: flex;
             flex-direction: column;
-            gap: 1.25rem;
+            gap: 1rem;
         }
 
-        /* ── Activity Card ── */
         .activity-card {
             display: grid;
-            grid-template-columns: 140px 1fr auto;
-            grid-template-rows: auto auto;
-            gap: 0.5rem 1.25rem;
+            grid-template-columns: 110px 1fr auto;
             background: #fff;
             border: 1px solid #d0dce8;
             border-radius: 12px;
@@ -40,8 +34,7 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.07);
             cursor: pointer;
             transition: box-shadow 0.2s, transform 0.15s;
-            text-decoration: none;
-            color: inherit;
+            text-align: left;
         }
 
         .activity-card:hover {
@@ -50,28 +43,29 @@
         }
 
         .activity-card img {
-            grid-row: 1 / 3;
-            width: 140px;
-            height: 130px;
+            width: 110px;
+            height: 100%;
+            min-height: 110px;
             object-fit: cover;
             display: block;
         }
 
         .card-body {
-            padding: 0.85rem 0 0.5rem 0;
+            padding: 0.75rem;
         }
 
         .card-title {
-            font-size: 1.15rem;
+            font-size: 1rem;
             font-weight: 700;
-            color: #1a3a5c;
+            color: var(--color-primary);
             margin: 0 0 0.2rem 0;
+            font-family: 'Electrolize', sans-serif;
         }
 
         .card-time {
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             color: #5a7a99;
-            margin: 0 0 0.5rem 0;
+            margin: 0 0 0.4rem 0;
             display: flex;
             align-items: center;
             gap: 0.3rem;
@@ -79,33 +73,34 @@
 
         .card-time::before {
             content: "🕒";
-            font-size: 0.85rem;
         }
 
         .card-description {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: #444;
             line-height: 1.5;
             margin: 0;
         }
 
-        /* ── RSVP Buttons ── */
         .card-actions {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 0.6rem;
-            padding: 0.85rem 1.25rem 0.85rem 0;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border-left: 1px solid #e8eef4;
+            width: 75px;
+            flex-shrink: 0;
         }
 
         .btn-going,
         .btn-notgoing {
-            width: 42px;
-            height: 42px;
+            width: 38px;
+            height: 38px;
             border: none;
             border-radius: 50%;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -137,40 +132,80 @@
             transform: scale(1.12);
         }
 
-        /* Status label */
         .rsvp-status {
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             font-weight: 600;
             text-align: center;
             color: #888;
             min-height: 1rem;
+            font-family: 'Electrolize', sans-serif;
+            width: 100%;
+            word-break: break-word;
+        }
+
+        @media (min-width: 480px) {
+            .activities-section h2 {
+                font-size: 1.6rem;
+            }
+
+            .activity-card {
+                grid-template-columns: 130px 1fr auto;
+            }
+
+            .activity-card img {
+                width: 130px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .activities-section h2 {
+                font-size: 1.9rem;
+            }
+
+            .activities-section {
+                margin: 36px 0 48px;
+                padding: 0px;
+            }
+
+            .activity-card {
+                grid-template-columns: 150px 1fr auto;
+            }
+
+            .activity-card img {
+                width: 150px;
+            }
+
+            .card-title {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <header> 
 
+    <header>
         <div id="hero">
-            <img class="hero" src="images/hero.jpeg" alt="BYU-Idaho Campus">
-        </div> 
+            <img class="hero-img" src="images/hero.jpeg" alt="BYU-Idaho Campus">
+            <a id="logo" href="main.html" aria-label="Fishy Activities Home">
+                <img src="images/logo.png" alt="Fishy Activities Logo" />
+            </a>
+        </div>
 
-        <a id="logo" href="main.html">
-            <img src="images/logo.png" alt="Logo" />
-        </a>
-        
-        <nav>
-            <a href="main.html">Home</a>
-            <a href="activities.html">Activities</a>
-            <a href="about.html">about</a>
+        <nav aria-label="Main navigation">
+            <ul>
+                <li><a href="main.html">Home</a></li>
+                <li><a href="activities-fixed.html">Activities</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a class="sign-in" href="signin.html">Sign In</a></li>
+            </ul>
         </nav>
-
     </header>
+
     <main>
         <section class="activities-section">
             <h2>Upcoming Activities</h2>
             <div class="activity-list">
 
-                <!-- Activity Card 1 -->
                 <div class="activity-card" onclick="goToActivity('kayaking')">
                     <img src="images/kayaking.webp" alt="Kayaking">
                     <div class="card-body">
@@ -188,7 +223,6 @@
                     </div>
                 </div>
 
-                <!-- Activity Card 2 -->
                 <div class="activity-card" onclick="goToActivity('bonfire')">
                     <img src="images/Bonfire.webp" alt="Bonfire">
                     <div class="card-body">
@@ -206,7 +240,6 @@
                     </div>
                 </div>
 
-                <!-- Activity Card 3 -->
                 <div class="activity-card" onclick="goToActivity('volleyball')">
                     <img src="images/volleyball.webp" alt="Volleyball">
                     <div class="card-body">
@@ -227,9 +260,11 @@
             </div>
         </section>
     </main>
+
     <footer>
-        <p>Copyright © 2026 Fishy Activities</p>
+        <p>Copyright &copy; 2026 Fishy Activities</p>
     </footer>
+
     <script>
         function goToActivity(activityId) {
             window.location.href = `activitiesdescription.html?activity=${activityId}`;
@@ -241,14 +276,12 @@
             const notBtn = actions.querySelector('.btn-notgoing');
             const status = document.getElementById(statusId);
 
-            // Toggle off if already active
             if (btn.classList.contains('active')) {
                 btn.classList.remove('active');
                 status.textContent = '';
                 return;
             }
 
-            // Clear both, set the clicked one
             goingBtn.classList.remove('active');
             notBtn.classList.remove('active');
             btn.classList.add('active');
@@ -262,5 +295,6 @@
             }
         }
     </script>
+
 </body>
 </html>
