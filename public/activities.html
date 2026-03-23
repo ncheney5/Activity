@@ -29,59 +29,8 @@
     <main>
         <section class="activities-section">
             <h1>Upcoming Activities</h1>
-            <div class="activity-list">
-
-                <div class="activity-card" onclick="goToActivity('kayaking')">
-                    <img src="images/kayaking.webp" alt="Kayaking">
-                    <div class="card-body">
-                        <h3 class="card-title">Kayaking at Rexburg Rapids</h3>
-                        <p class="card-time">Saturday, March 22 · 10:00 AM</p>
-                        <p class="card-description">
-                            Join us for a relaxing kayak trip down the river. All skill levels welcome —
-                            equipment provided. Meet at the south boat launch.
-                        </p>
-                    </div>
-                    <div class="card-actions" onclick="event.stopPropagation()">
-                        <button class="btn-going" onclick="rsvp(this, 'going', 'status-1')" title="I'm going">✓</button>
-                        <button class="btn-notgoing" onclick="rsvp(this, 'notgoing', 'status-1')" title="Not going">✕</button>
-                        <span class="rsvp-status" id="status-1"></span>
-                    </div>
-                </div>
-
-                <div class="activity-card" onclick="goToActivity('bonfire')">
-                    <img src="images/Bonfire.webp" alt="Bonfire">
-                    <div class="card-body">
-                        <h3 class="card-title">Bonfire & S'mores Night</h3>
-                        <p class="card-time">Friday, March 28 · 7:30 PM</p>
-                        <p class="card-description">
-                            Gather around the fire for s'mores, music, and good company.
-                            Bring a blanket and your best campfire stories!
-                        </p>
-                    </div>
-                    <div class="card-actions" onclick="event.stopPropagation()">
-                        <button class="btn-going" onclick="rsvp(this, 'going', 'status-2')" title="I'm going">✓</button>
-                        <button class="btn-notgoing" onclick="rsvp(this, 'notgoing', 'status-2')" title="Not going">✕</button>
-                        <span class="rsvp-status" id="status-2"></span>
-                    </div>
-                </div>
-
-                <div class="activity-card" onclick="goToActivity('volleyball')">
-                    <img src="images/volleyball.webp" alt="Volleyball">
-                    <div class="card-body">
-                        <h3 class="card-title">Beach Volleyball Tournament</h3>
-                        <p class="card-time">Sunday, March 30 · 2:00 PM</p>
-                        <p class="card-description">
-                            Form a team of 4 and compete in our annual sand volleyball tournament.
-                            Prizes for 1st and 2nd place. Sign up before Friday!
-                        </p>
-                    </div>
-                    <div class="card-actions" onclick="event.stopPropagation()">
-                        <button class="btn-going" onclick="rsvp(this, 'going', 'status-3')" title="I'm going">✓</button>
-                        <button class="btn-notgoing" onclick="rsvp(this, 'notgoing', 'status-3')" title="Not going">✕</button>
-                        <span class="rsvp-status" id="status-3"></span>
-                    </div>
-                </div>
-
+            <div class="activity-list" id="activity-list">
+                <!-- Cards are injected here by JS -->
             </div>
         </section>
     </main>
@@ -90,34 +39,85 @@
         <p>Copyright &copy; 2026 Fishy Activities</p>
     </footer>
 
+    <!-- Shared data layer (swap internals for Firestore when ready) -->
+    <script src="activitiesData.js"></script>
     <script>
+        // ── Render ──────────────────────────────────────────────────────
+        // Track going counts in memory (will come from Firestore later)
+        const goingCounts = {};
+
+        function renderCards(activities) {
+            const list = document.getElementById("activity-list");
+
+            // Seed counts from data
+            activities.forEach(a => goingCounts[a.id] = a.goingCount);
+
+            list.innerHTML = activities.map((activity, index) => `
+                <div class="activity-card" onclick="goToActivity('${activity.id}')">
+                    <img src="${activity.image}" alt="${activity.title}">
+                    <div class="card-body">
+                        <h3 class="card-title">${activity.title}</h3>
+                        <p class="card-time">${activity.time}</p>
+                        <p class="card-description">${activity.description}</p>
+                    </div>
+                    <div class="card-actions" onclick="event.stopPropagation()">
+                        <button class="btn-going"    onclick="rsvp(this, 'going',    'status-${index}', '${activity.id}')" title="I'm going">✓</button>
+                        <button class="btn-notgoing" onclick="rsvp(this, 'notgoing', 'status-${index}', '${activity.id}')" title="Not going">✕</button>
+                        <span class="rsvp-status" id="status-${index}"></span>
+                        <span class="going-count" id="count-${activity.id}">${activity.goingCount > 0 ? activity.goingCount + ' going' : ''}</span>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        // ── Init ────────────────────────────────────────────────────────
+        getActivities().then(renderCards);
+
+        // ── Navigation ──────────────────────────────────────────────────
         function goToActivity(activityId) {
             window.location.href = `activitiesdescription.html?activity=${activityId}`;
         }
 
-        function rsvp(btn, type, statusId) {
-            const actions = btn.closest('.card-actions');
-            const goingBtn = actions.querySelector('.btn-going');
-            const notBtn = actions.querySelector('.btn-notgoing');
-            const status = document.getElementById(statusId);
+        // ── RSVP ────────────────────────────────────────────────────────
+        function rsvp(btn, type, statusId, activityId) {
+            const actions   = btn.closest(".card-actions");
+            const goingBtn  = actions.querySelector(".btn-going");
+            const notBtn    = actions.querySelector(".btn-notgoing");
+            const status    = document.getElementById(statusId);
+            const countEl   = document.getElementById("count-" + activityId);
 
-            if (btn.classList.contains('active')) {
-                btn.classList.remove('active');
-                status.textContent = '';
-                return;
-            }
+            const wasGoing   = goingBtn.classList.contains("active");
+            const isTogglingOff = btn.classList.contains("active");
 
-            goingBtn.classList.remove('active');
-            notBtn.classList.remove('active');
-            btn.classList.add('active');
-
-            if (type === 'going') {
-                status.textContent = "Going!";
-                status.style.color = "#2e7d32";
+            // Update count based on action
+            if (isTogglingOff) {
+                // Un-RSVPing
+                if (type === "going") goingCounts[activityId]--;
+                btn.classList.remove("active");
+                status.textContent = "";
             } else {
-                status.textContent = "Not going";
-                status.style.color = "#c62828";
+                // Switching from going → not going: decrement
+                if (type === "notgoing" && wasGoing) goingCounts[activityId]--;
+                // Switching to going: increment
+                if (type === "going") goingCounts[activityId]++;
+
+                goingBtn.classList.remove("active");
+                notBtn.classList.remove("active");
+                btn.classList.add("active");
+
+                if (type === "going") {
+                    status.textContent = "Going!";
+                    status.style.color = "#2e7d32";
+                } else {
+                    status.textContent = "Not going";
+                    status.style.color = "#c62828";
+                }
             }
+
+            // Update the count display
+            // FIRESTORE SWAP: updateDoc(doc(db,"activities",activityId), { goingCount: increment(delta) })
+            const count = goingCounts[activityId];
+            countEl.textContent = count > 0 ? count + " going" : "";
         }
     </script>
 
