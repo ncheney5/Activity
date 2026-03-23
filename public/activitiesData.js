@@ -19,6 +19,7 @@ const _activities = [
         location: "South Boat Launch",
         time: "Saturday, March 22 · 10:00 AM",
         image: "images/kayaking.webp",
+        goingCount: 0,   // FIRESTORE SWAP: read from document field "goingCount"
         description:
             "Join us for a relaxing kayak trip down the river. All skill levels welcome — " +
             "equipment provided. Meet at the south boat launch.",
@@ -29,6 +30,7 @@ const _activities = [
         location: "Outdoor Fire Pit",
         time: "Friday, March 28 · 7:30 PM",
         image: "images/Bonfire.webp",
+        goingCount: 0,   // FIRESTORE SWAP: read from document field "goingCount"
         description:
             "Gather around the fire for s'mores, music, and good company. " +
             "Bring a blanket and your best campfire stories!",
@@ -39,6 +41,7 @@ const _activities = [
         location: "Campus Sand Courts",
         time: "Sunday, March 30 · 2:00 PM",
         image: "images/volleyball.webp",
+        goingCount: 0,   // FIRESTORE SWAP: read from document field "goingCount"
         description:
             "Form a team of 4 and compete in our annual sand volleyball tournament. " +
             "Prizes for 1st and 2nd place. Sign up before Friday!",
