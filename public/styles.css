@@ -160,6 +160,42 @@ p {
     font-family: 'Electrolize', sans-serif;
 }
 
+/* ── Activities: Filter ── */
+.activities-header {
+    position: relative;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 16px;
+    padding: 12px 0;
+    height: 48px;
+}
+
+.filter-btn {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+    background-color: var(--color-primary);
+    color: var(--color-light);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.filter-btn:hover {
+    background-color: var(--color-accent);
+}
+
+.activities-header h1 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
 /* ── Activities: Cards ── */
 .activity-list {
     display: flex;
