@@ -3,15 +3,17 @@
 /* ── Variables (mobile defaults) ── */
 :root {
     --color-primary: #0D4157;
-    --color-accent:  #CC4716;
-    --color-light:   #F9F9F1;
-    --max-width:     800px;
-    --hero-height:   150px;
-    --logo-size:     140px;
+    --color-accent: #CC4716;
+    --color-light: #F9F9F1;
+    --max-width: 800px;
+    --hero-height: 150px;
+    --logo-size: 140px;
 }
 
 /* ── Reset ── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -21,10 +23,22 @@
 body {
     font-family: 'Electrolize', sans-serif;
     color: var(--color-primary);
+    background-color: #fff;
+    margin: 0;
+    text-align: center;
+}
+
+main,
+header,
+footer {
     max-width: var(--max-width);
     margin: 0 auto;
     padding: 0 12px;
-    text-align: center;
+}
+
+/* ── Header ── */
+header {
+    position: relative;
 }
 
 /* ── Hero ── */
@@ -46,40 +60,48 @@ body {
 /* ── Logo ── */
 #logo {
     position: absolute;
-    bottom: calc(var(--logo-size) / -2);
     left: 50%;
+    bottom: calc(var(--logo-size) / -2);
     transform: translateX(-50%);
     width: var(--logo-size);
     height: var(--logo-size);
     border-radius: 50%;
     overflow: hidden;
     border: 4px solid white;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-    display: block;
     background: white;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    display: block;
 }
 
 #logo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
 /* ── Nav ── */
 nav {
-    margin-top: calc(var(--logo-size) / 2 + 16px);
+    margin-top: calc(var(--logo-size) / 2 + 20px);
     margin-bottom: 12px;
+    background-color: var(--color-primary);
+    border-radius: 10px;
+    padding: 6px;
 }
 
 nav ul {
     list-style: none;
-    display: inline-flex;
+    display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 4px;
-    background-color: var(--color-primary);
-    border-radius: 10px;
-    padding: 4px;
+    gap: 6px;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    margin: 0;
 }
 
 nav a {
@@ -101,7 +123,6 @@ nav a:focus {
 nav a.sign-in {
     background-color: var(--color-accent);
     color: var(--color-light);
-    border-radius: 7px;
     font-weight: bold;
 }
 
@@ -116,9 +137,20 @@ h1 {
     margin-bottom: 12px;
 }
 
+h2 {
+    color: var(--color-accent);
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+}
+
 p {
     line-height: 1.7;
     font-size: 0.95rem;
+}
+
+/* ── Main content spacing ── */
+main {
+    margin-top: 24px;
 }
 
 /* ── Home: Intro ── */
@@ -145,6 +177,31 @@ p {
     border: 0;
 }
 
+/* ── About Page Sections ── */
+.about,
+.team,
+.contact {
+    margin: 32px 0 40px;
+    padding: 0 4px;
+}
+
+.team-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.team-images img {
+    width: 200px;
+    max-width: 100%;
+    height: 200px;
+    border-radius: 8px;
+    object-fit: cover;
+    display: block;
+}
+
 /* ── Activities: Section ── */
 .activities-section {
     justify-items: center;
@@ -158,6 +215,43 @@ p {
     font-size: 1.4rem;
     margin-bottom: 20px;
     font-family: 'Electrolize', sans-serif;
+    text-align: center;
+}
+
+/* ── Activities: Filter ── */
+.activities-header {
+    position: relative;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 16px;
+    padding: 12px 0;
+    height: 48px;
+}
+
+.filter-btn {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+    background-color: var(--color-primary);
+    color: var(--color-light);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.filter-btn:hover {
+    background-color: var(--color-accent);
+}
+
+.activities-header h1 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
 }
 
 /* ── Activities: Cards ── */
@@ -166,7 +260,15 @@ p {
     flex-direction: column;
     gap: 1rem;
 }
-
+.going-count {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #2e7d32;
+            text-align: center;
+            min-height: 1rem;
+            width: 100%;
+            word-break: break-word;
+        }
 .activity-card {
     display: grid;
     grid-template-columns: 110px 1fr auto;
@@ -174,14 +276,14 @@ p {
     border: 1px solid #d0dce8;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
     cursor: pointer;
     transition: box-shadow 0.2s, transform 0.15s;
     text-align: left;
 }
 
 .activity-card:hover {
-    box-shadow: 0 6px 20px rgba(0,0,0,0.13);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.13);
     transform: translateY(-2px);
 }
 
@@ -287,10 +389,145 @@ p {
     word-break: break-word;
 }
 
+/* ── Wheel Page ── */
+.wheel-page {
+    margin: 32px 0 48px;
+    padding: 0 4px;
+}
+
+.wheel-page h1 {
+    color: var(--color-accent);
+    margin-bottom: 10px;
+}
+
+.wheel-page p {
+    margin-bottom: 20px;
+}
+
+.wheel-wrapper {
+    position: relative;
+    width: 340px;
+    height: 340px;
+    margin: 24px auto;
+}
+
+.pointer {
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-top: 30px solid var(--color-accent);
+    z-index: 5;
+}
+
+.wheel {
+    width: 320px;
+    height: 320px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 8px solid var(--color-primary);
+    position: relative;
+    overflow: hidden;
+    transition: transform 4s ease-out;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+}
+
+.slice-label {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: 0 0;
+    font-size: 0.72rem;
+    font-weight: bold;
+    color: white;
+    white-space: nowrap;
+    max-width: 110px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+#spinBtn {
+    font-family: 'Electrolize', sans-serif;
+    background-color: var(--color-accent);
+    color: var(--color-light);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+#spinBtn:hover {
+    background-color: #a8390f;
+    transform: translateY(-1px);
+}
+
+#spinBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ── Popup ── */
+.popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: white;
+    color: var(--color-primary);
+    width: 300px;
+    max-width: 90%;
+    padding: 24px 20px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.popup-content h2 {
+    color: var(--color-accent);
+    margin-bottom: 12px;
+}
+
+.popup-content p {
+    margin-bottom: 16px;
+}
+
+.popup-content button {
+    font-family: 'Electrolize', sans-serif;
+    background-color: var(--color-primary);
+    color: var(--color-light);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.popup-content button:hover {
+    background-color: var(--color-accent);
+}
+
+.hidden {
+    display: none;
+}
+
 /* ── Footer ── */
 footer {
-    margin-top: 40px;
-    padding: 16px 0;
+    max-width: var(--max-width);
+    margin: 40px auto 0;
+    padding: 16px 12px;
     font-size: 0.8rem;
     color: #666;
 }
@@ -329,6 +566,20 @@ form {
 
     .activity-card img {
         width: 130px;
+    }
+
+    .wheel-wrapper {
+        width: 380px;
+        height: 380px;
+    }
+
+    .wheel {
+        width: 360px;
+        height: 360px;
+    }
+
+    .slice-label {
+        font-size: 0.78rem;
     }
 }
 
@@ -372,5 +623,19 @@ form {
 
     .card-title {
         font-size: 1.1rem;
+    }
+
+    .wheel-wrapper {
+        width: 420px;
+        height: 420px;
+    }
+
+    .wheel {
+        width: 400px;
+        height: 400px;
+    }
+
+    .slice-label {
+        font-size: 0.82rem;
     }
 }
