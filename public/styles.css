@@ -295,6 +295,12 @@ footer {
     color: #666;
 }
 
+form {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+}
+
 /* ════════════════════════════════
    Breakpoint: 480px +
 ════════════════════════════════ */
