@@ -1,56 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fishy Activities | Spin Wheel</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script type="module" src="wheelscript.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fishy Activities | Spin Wheel</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="wheelscript.js" defer></script>
 </head>
 <body>
 
-  <header>
-    <div id="hero">
-      <img class="hero" src="images/hero.jpeg" alt="Students on campus" />
+    <header>
+        <div id="hero">
+            <img class="hero-img" src="images/hero.jpeg" alt="Students on campus">
+            <a id="logo" href="index.html" aria-label="Fishy Activities Home">
+                <img src="images/logo.png" alt="Fishy Activities logo">
+            </a>
+        </div>
+
+        <nav aria-label="Main navigation">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="activities.html">Activities</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="wheel.html" aria-current="page">Spin Wheel</a></li>
+                <li><a class="sign-in" href="sign.html">Sign In</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="wheel-page">
+        <h1>Spin for Something Fun</h1>
+        <p>Spin the wheel to get a random activity idea.</p>
+
+        <div class="wheel-wrapper">
+            <div class="pointer"></div>
+            <div id="wheel" class="wheel"></div>
+        </div>
+
+        <button id="spinBtn">Spin</button>
+    </main>
+
+    <div id="popup" class="popup hidden">
+        <div class="popup-content">
+            <h2>You got:</h2>
+            <p id="popupText"></p>
+            <button id="goBtn">Go to Activity</button>
+            <button id="closeBtn">Close</button>
+        </div>
     </div>
 
-    <a id="logo" href="index.html">
-      <img src="images/logo.png" alt="Fishy Activities logo" />
-    </a>
+    <footer>
+        <p>&copy; 2026 Fishy Activities</p>
+    </footer>
 
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="activities.html">Activities</a>
-      <a href="about.html">About</a>
-      <a href="wheel.html">Spin Wheel</a>
-      <a href="sign.html">Sign in</a>
-    </nav>
-  </header>
-
-  <main class="wheel-page">
-    <h1>Spin for Something Fun</h1>
-
-    <div class="wheel-wrapper">
-      <div class="pointer"></div>
-      <div id="wheel" class="wheel"></div>
-    </div>
-
-    <button id="spinBtn">Spin</button>
-  </main>
-
-  <div id="popup" class="popup hidden">
-    <div class="popup-content">
-      <h2>You got:</h2>
-      <p id="popupText"></p>
-      <button id="goBtn">Go to activity</button>
-      <button id="closeBtn">Close</button>
-    </div>
-  </div>
-
-  <footer>
-    <p>Copyright © 2026 Fishy Activities</p>
-  </footer>
-
-  
 </body>
 </html>
