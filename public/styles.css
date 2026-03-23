@@ -166,7 +166,15 @@ p {
     flex-direction: column;
     gap: 1rem;
 }
-
+.going-count {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #2e7d32;
+            text-align: center;
+            min-height: 1rem;
+            width: 100%;
+            word-break: break-word;
+        }
 .activity-card {
     display: grid;
     grid-template-columns: 110px 1fr auto;
