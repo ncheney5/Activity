@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
 
-/* ── Variables (mobile defaults) ── */
 :root {
     --color-primary: #0D4157;
     --color-accent: #CC4716;
@@ -10,7 +9,6 @@
     --logo-size: 140px;
 }
 
-/* ── Reset ── */
 *,
 *::before,
 *::after {
@@ -19,7 +17,6 @@
     padding: 0;
 }
 
-/* ── Base / Body ── */
 body {
     font-family: 'Electrolize', sans-serif;
     color: var(--color-primary);
@@ -36,12 +33,10 @@ footer {
     padding: 0 12px;
 }
 
-/* ── Header ── */
 header {
     position: relative;
 }
 
-/* ── Hero ── */
 #hero {
     position: relative;
     width: 100%;
@@ -57,7 +52,6 @@ header {
     border-radius: 0 0 8px 8px;
 }
 
-/* ── Logo ── */
 #logo {
     position: absolute;
     left: 50%;
@@ -81,13 +75,15 @@ header {
     display: block;
 }
 
-/* ── Nav ── */
 nav {
     margin-top: calc(var(--logo-size) / 2 + 20px);
     margin-bottom: 12px;
     background-color: var(--color-primary);
     border-radius: 10px;
     padding: 6px;
+    width: fit-content;     
+    margin-left: auto;       
+    margin-right: auto;      
 }
 
 nav ul {
@@ -130,7 +126,6 @@ nav a.sign-in:hover {
     background-color: #a8390f;
 }
 
-/* ── Typography ── */
 h1 {
     color: var(--color-accent);
     font-size: 1.4rem;
@@ -148,18 +143,15 @@ p {
     font-size: 0.95rem;
 }
 
-/* ── Main content spacing ── */
 main {
     margin-top: 24px;
 }
 
-/* ── Home: Intro ── */
 #intro-text {
     margin: 24px 0 32px;
     padding: 0 4px;
 }
 
-/* ── Home: Video ── */
 .video-wrapper {
     position: relative;
     padding-bottom: 56.25%;
@@ -177,7 +169,6 @@ main {
     border: 0;
 }
 
-/* ── About Page Sections ── */
 .about,
 .team,
 .contact {
@@ -202,7 +193,6 @@ main {
     display: block;
 }
 
-/* ── Activities: Section ── */
 .activities-section {
     justify-items: center;
     margin: 24px 0 40px;
@@ -218,7 +208,6 @@ main {
     text-align: center;
 }
 
-/* ── Activities: Filter ── */
 .activities-header {
     position: relative;
     width: 100%;
@@ -254,7 +243,40 @@ main {
     margin: 0;
 }
 
-/* ── Activities: Cards ── */
+.filter-panel {
+    background: #fff;
+    border: 1px solid #d0dce8;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.filter-panel {
+    background: #fff;
+    border: 1px solid #d0dce8;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
 .activity-list {
     display: flex;
     flex-direction: column;
@@ -327,7 +349,6 @@ main {
     margin: 0;
 }
 
-/* ── Activities: RSVP actions ── */
 .card-actions {
     display: flex;
     flex-direction: column;
@@ -389,7 +410,6 @@ main {
     word-break: break-word;
 }
 
-/* ── Wheel Page ── */
 .wheel-page {
     margin: 32px 0 48px;
     padding: 0 4px;
@@ -472,7 +492,6 @@ main {
     cursor: not-allowed;
 }
 
-/* ── Popup ── */
 .popup {
     position: fixed;
     inset: 0;
@@ -523,7 +542,6 @@ main {
     display: none;
 }
 
-/* ── Footer ── */
 footer {
     max-width: var(--max-width);
     margin: 40px auto 0;
@@ -538,9 +556,7 @@ form {
     grid-template-columns: 1fr 1fr;
 }
 
-/* ════════════════════════════════
-   Breakpoint: 480px +
-════════════════════════════════ */
+
 @media (min-width: 480px) {
     :root {
         --hero-height: 180px;
@@ -583,9 +599,7 @@ form {
     }
 }
 
-/* ════════════════════════════════
-   Breakpoint: 768px +
-════════════════════════════════ */
+
 @media (min-width: 768px) {
     :root {
         --hero-height: 220px;

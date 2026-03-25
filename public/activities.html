@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fishy Activities | Activities</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+        .going-count {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #2e7d32;
+            text-align: center;
+            min-height: 1rem;
+            width: 100%;
+            word-break: break-word;
+        }
+    </style>
 </head>
 <body>
 
@@ -22,7 +33,6 @@
                 <li><a href="activities.html">Activities</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a class="sign-in" href="sign.html">Sign In</a></li>
-                <li><a href="add-activities.html">Add Activity</a></li>
             </ul>
         </nav>
     </header>
@@ -61,7 +71,7 @@
                     <img src="${activity.image}" alt="${activity.title}">
                     <div class="card-body">
                         <h3 class="card-title">${activity.title}</h3>
-                        <p class="card-time">${activity.time}</p>
+                        <p class="card-time">${activity.displayTime}</p>
                         <p class="card-description">${activity.description}</p>
                     </div>
                     <div class="card-actions" onclick="event.stopPropagation()">
@@ -122,6 +132,60 @@
             // FIRESTORE SWAP: updateDoc(doc(db,"activities",activityId), { goingCount: increment(delta) })
             const count = goingCounts[activityId];
             countEl.textContent = count > 0 ? count + " going" : "";
+        }
+            // Filter Button
+        function toggleFilters() {
+            document.getElementById("filter-panel").classList.toggle("hidden");
+        }
+        const freeOnly = document.getElementById("freeOnly");
+        const timeFilter = document.getElementById("timeFilter");
+        const sortBy = document.getElementById("sortBy");
+
+        freeOnly.addEventListener("change", applyFilters);
+        timeFilter.addEventListener("change", applyFilters);
+        sortBy.addEventListener("change", applyFilters);
+
+        function applyFilters() {
+            const cards = Array.from(document.querySelectorAll(".activity-card"));
+            const list = document.querySelector(".activity-list");
+
+            let filtered = cards.filter(card => {
+                const isFree = card.dataset.free === "true";
+                const date = new Date(card.dataset.date);
+                const now = new Date();
+
+                // Free filter
+                if (freeOnly.checked && !isFree) return false;
+
+                // Time filter
+                if (timeFilter.value === "today") {
+                    if (date.toDateString() !== now.toDateString()) return false;
+                }
+
+                if (timeFilter.value === "week") {
+                    const diff = (date - now) / (1000 * 60 * 60 * 24);
+                    if (diff < 0 || diff > 7) return false;
+                }
+
+                return true;
+            });
+
+            // Sorting
+            if (sortBy.value === "soonest") {
+                filtered.sort((a, b) =>
+                    new Date(a.dataset.date) - new Date(b.dataset.date)
+                );
+            }
+
+            if (sortBy.value === "popular") {
+                filtered.sort((a, b) =>
+                    b.dataset.popularity - a.dataset.popularity
+                );
+            }
+
+            // Re-render
+            list.innerHTML = "";
+            filtered.forEach(card => list.appendChild(card));
         }
     </script>
 

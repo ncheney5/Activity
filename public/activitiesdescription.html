@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="styles.css" />
     <style>
         main {
-        max-width: 800px;
-        margin: 40px auto;
-        padding: 20px;
-        background: #ffffff;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        text-align: center;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
         }
 
         #title {
@@ -42,6 +42,11 @@
             line-height: 1.6;
             color: #444;
         }
+
+        #not-found {
+            margin: 60px auto;
+            color: var(--color-accent);
+        }
     </style>
 </head>
 
@@ -49,14 +54,14 @@
     <header>
         <div id="hero">
             <img class="hero-img" src="images/hero.jpeg" alt="BYU-Idaho Campus">
-            <a id="logo" href="main.html" aria-label="Fishy Activities Home">
+            <a id="logo" href="index.html" aria-label="Fishy Activities Home">
                 <img src="images/logo.png" alt="Fishy Activities Logo" />
             </a>
         </div>
 
         <nav aria-label="Main navigation">
             <ul>
-                <li><a href="main.html">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="activities.html">Activities</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a class="sign-in" href="sign.html">Sign In</a></li>
@@ -64,61 +69,41 @@
         </nav>
     </header>
 
-    <main>
-        <h1 id="title">Activity Title</h1>
-        <h2 id="location">Location</h2>
-        <h2 id="time">Time</h2>
-
-        <img id="image" src="" alt="Activity Photo">
-        <p id="description">
-            Activity description goes here
-        </p>
+    <main id="content">
+        <!-- Populated by JS once data resolves -->
     </main>
 
     <footer>
-        <p>Copyright © 2026 Fishy Activities</p>
+        <p>Copyright &copy; 2026 Fishy Activities</p>
     </footer>
 
+    <!-- Shared data layer (swap internals for Firestore when ready) -->
+    <script src="activitiesData.js"></script>
     <script>
-        const activities = {
-            kayaking: {
-                title: "Kayaking at Rexburg Rapids",
-                location: "South Boat Launch",
-                time: "Saturday, March 22 · 10:00 AM",
-                image: "images/kayaking.webp",
-                description: "Join us for a relaxing kayak trip down the river. All skill levels welcome — equipment provided."
-            },
-            bonfire: {
-                title: "Bonfire & S'mores Night",
-                location: "Outdoor Fire Pit",
-                time: "Friday, March 28 · 7:30 PM",
-                image: "images/Bonfire.webp",
-                description: "Gather around the fire for s'mores, music, and good company."
-            },
-            volleyball: {
-                title: "Beach Volleyball Tournament",
-                location: "Campus Sand Courts",
-                time: "Sunday, March 30 · 2:00 PM",
-                image: "images/volleyball.webp",
-                description: "Form a team of 4 and compete in our annual tournament."
-            }
-        };
-
-        const params = new URLSearchParams(window.location.search);
+        const params     = new URLSearchParams(window.location.search);
         const activityId = params.get("activity");
 
-        if (activities[activityId]) {
-            const activity = activities[activityId];
+        getActivityById(activityId).then((activity) => {
+            const content = document.getElementById("content");
 
-            document.getElementById("title").textContent = activity.title;
-            document.getElementById("location").textContent = activity.location;
-            document.getElementById("time").textContent = activity.time;
-            document.getElementById("description").textContent = activity.description;
-            
-            const img = document.getElementById("image");
-            img.src = activity.image;
-            img.alt = activity.title;
-        }
+            if (!activity) {
+                content.innerHTML = `
+                    <p id="not-found">Activity not found. <a href="activities.html">Go back to activities.</a></p>
+                `;
+                return;
+            }
+
+            // Update page title
+            document.title = `Fishy Activities | ${activity.title}`;
+
+            content.innerHTML = `
+                <h1 id="title">${activity.title}</h1>
+                <h2 id="location">${activity.location}</h2>
+                <h2 id="time">${activity.displayTime}</h2>
+                <img id="image" src="${activity.image}" alt="${activity.title}">
+                <p id="description">${activity.description}</p>
+            `;
+        });
     </script>
 
 </body>
