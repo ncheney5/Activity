@@ -571,7 +571,11 @@ form {
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    max-width: 400px;
+    margin: 0 auto;
 }
+
 
 
 @media (min-width: 480px) {
