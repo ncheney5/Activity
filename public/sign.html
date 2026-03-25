@@ -3,8 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fishy Activities | Home</title>
+    <title>Fishy Activities | Sign In</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+        #auth-error {
+            color: #c62828;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+        #google-sign-in {
+            margin-top: 1rem;
+            padding: 0.65rem 1.25rem;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #fff;
+        }
+        #google-sign-in:hover {
+            background: #f5f5f5;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -25,9 +45,19 @@
         </nav>
     </header>
 
+    <main>
+        <section id="intro-text">
+            <h1>Sign in</h1>
+            <p>Sign in with your Google account to RSVP to activities and access features reserved for students.</p>
+            <button type="button" id="google-sign-in">Sign in with Google</button>
+            <p id="auth-error" role="alert" aria-live="polite" hidden></p>
+        </section>
+    </main>
+
     <footer>
         <p>Copyright © 2026 Fishy Activities</p>
     </footer>
 
+    <script type="module" src="js/signInPage.js"></script>
 </body>
 </html>

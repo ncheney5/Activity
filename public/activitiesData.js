@@ -117,3 +117,5 @@ function getActivityById(id) {
     const found = _activities.find((a) => a.id === id) || null;
     return Promise.resolve(found);
 }
+
+export { getActivities, getActivityById };

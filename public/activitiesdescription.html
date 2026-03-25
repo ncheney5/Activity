@@ -77,34 +77,7 @@
         <p>Copyright &copy; 2026 Fishy Activities</p>
     </footer>
 
-    <!-- Shared data layer (swap internals for Firestore when ready) -->
-    <script src="activitiesData.js"></script>
-    <script>
-        const params     = new URLSearchParams(window.location.search);
-        const activityId = params.get("activity");
-
-        getActivityById(activityId).then((activity) => {
-            const content = document.getElementById("content");
-
-            if (!activity) {
-                content.innerHTML = `
-                    <p id="not-found">Activity not found. <a href="activities.html">Go back to activities.</a></p>
-                `;
-                return;
-            }
-
-            // Update page title
-            document.title = `Fishy Activities | ${activity.title}`;
-
-            content.innerHTML = `
-                <h1 id="title">${activity.title}</h1>
-                <h2 id="location">${activity.location}</h2>
-                <h2 id="time">${activity.displayTime}</h2>
-                <img id="image" src="${activity.image}" alt="${activity.title}">
-                <p id="description">${activity.description}</p>
-            `;
-        });
-    </script>
+    <script type="module" src="js/activityDescriptionPage.js"></script>
 
 </body>
 </html>
