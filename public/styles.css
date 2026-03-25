@@ -243,36 +243,51 @@ main {
     margin: 0;
 }
 
+.filter-wrapper {
+    position: absolute;
+    left: 0;
+}
+
+.filter-btn {
+    position: relative;
+    z-index: 3;
+}
+
+/* Dropdown panel */
 .filter-panel {
+    position: absolute;
+    top: 110%; /* just below button */
+    left: 0;
+
     background: #fff;
     border: 1px solid #d0dce8;
     border-radius: 10px;
     padding: 12px;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-top: 6px;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    min-width: 200px;
+    z-index: 2;
+
+    animation: fadeDown 0.2s ease;
 }
 
-.hidden {
-    display: none;
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
-
-.filter-panel {
-    background: #fff;
-    border: 1px solid #d0dce8;
-    border-radius: 10px;
-    padding: 12px;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
+/* Hidden state */
 .hidden {
     display: none;
 }
