@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fishy Activities | Activities</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+        .going-count {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #2e7d32;
+            text-align: center;
+            min-height: 1rem;
+            width: 100%;
+            word-break: break-word;
+        }
+    </style>
 </head>
 <body>
 
@@ -29,35 +40,9 @@
     <main>
         <section class="activities-section">
             <div class="activities-header">
-                <button class="filter-btn" onclick="toggleFilters()">☰ Filter</button>
+                <button class="filter-btn">☰ Filter</button>
                 <h1>Upcoming Activities</h1>
             </div>
-        <div id="filter-panel" class="filter-panel hidden">
-    
-            <label>
-                <input type="checkbox" id="freeOnly">
-                Free activities only
-            </label>
-
-            <label>
-                Time:
-                <select id="timeFilter">
-                    <option value="all">All</option>
-                    <option value="today">Today</option>
-                    <option value="week">This Week</option>
-                </select>
-            </label>
-
-            <label>
-                Sort by:
-                <select id="sortBy">
-                    <option value="soonest">Soonest</option>
-                    <option value="popular">Most Popular</option>
-                </select>
-            </label>
-            
-        </div>
-        
             <div class="activity-list" id="activity-list">
                 <!-- Cards are injected here by JS -->
             </div>
@@ -86,7 +71,7 @@
                     <img src="${activity.image}" alt="${activity.title}">
                     <div class="card-body">
                         <h3 class="card-title">${activity.title}</h3>
-                        <p class="card-time">${activity.time}</p>
+                        <p class="card-time">${activity.displayTime}</p>
                         <p class="card-description">${activity.description}</p>
                     </div>
                     <div class="card-actions" onclick="event.stopPropagation()">
