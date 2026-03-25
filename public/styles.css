@@ -254,6 +254,23 @@ main {
     margin: 0;
 }
 
+.filter-panel {
+    background: #fff;
+    border: 1px solid #d0dce8;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
 /* ── Activities: Cards ── */
 .activity-list {
     display: flex;
