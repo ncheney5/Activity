@@ -37,12 +37,31 @@
         </nav>
     </header>
 
-    <main>
-        <section class="activities-section">
+   <main>
+    <section class="activities-section">
 
-            <div class="activities-header">
+        <!-- Quick-nav buttons -->
+    <div class="quick-nav">
+        <a href="addactivities.html" class="quick-nav-btn">
+            <span class="nav-icon">＋</span>
+            <div class="nav-label">
+                Add Activity
+                <span>Share something fun</span>
+            </div>
+        </a>
+        <a href="wheel.html" class="quick-nav-btn">
+            <span class="nav-icon">🎡</span>
+            <div class="nav-label">
+                Spin the Wheel
+                <span>Get a random idea</span>
+            </div>
+        </a>
+    </div>
+
+
+        <div class="activities-header">
                 <div class="filter-wrapper">
-                    <button class="filter-btn" onclick="toggleFilters()">☰ Filter</button>
+                <button class="filter-btn" onclick="toggleFilters()">☰ Filter</button>
 
                     <div id="filter-panel" class="filter-panel hidden">
                         <label>
@@ -69,18 +88,18 @@
                     </div>
                 </div>
 
-                <h1>Upcoming Activities</h1>
-            </div>
+            <h1>Upcoming Activities</h1>
+        </div>
 
             <div class="activity-list" id="activity-list">
                 <!-- Cards injected by JS -->
             </div>
 
         </section>
-            <div class="activity-list" id="activity-list">
-                <!-- Cards are injected here by JS -->
-            </div>
-        </section>
+        <div class="activity-list" id="activity-list">
+            <!-- Cards are injected here by JS -->
+        </div>
+    </section>
     </main>
 
     <footer>

@@ -1,4 +1,4 @@
-import { db } from "./firebase.js";
+//import { db } from "./firebase.js";
 import {
   collection,
   getDocs
@@ -19,25 +19,35 @@ async function loadActivities() {
   try {
     const snapshot = await getDocs(collection(db, "activities"));
 
-    activities = snapshot.docs.map(doc => ({
+    let firestoreActivities = snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
     }));
 
-    activities = activities.filter(activity => activity.active !== false);
+    firestoreActivities = firestoreActivities.filter(activity => activity.active !== false);
 
-    if (activities.length === 0) {
-      wheel.innerHTML = "<p>No activities found.</p>";
-      spinBtn.disabled = true;
-      return;
+    if (firestoreActivities.length > 0) {
+      activities = firestoreActivities;
+    } else if (window.getActivities) {
+      activities = await window.getActivities();
+    } else {
+      activities = getPlaceholderActivities();
     }
-
-    buildWheel(activities);
   } catch (error) {
-    console.error("Error loading activities:", error);
-    wheel.innerHTML = "<p>Could not load activities.</p>";
-    spinBtn.disabled = true;
+    console.error("Firestore failed. Using local activities.", error);
+
+    if (window.getActivities) {
+      activities = await window.getActivities();
+    } else {
+      activities = getPlaceholderActivities();
+    }
   }
+
+  if (!activities || activities.length === 0) {
+    activities = getPlaceholderActivities();
+  }
+
+  buildWheel(activities);
 }
 
 function buildWheel(activityList) {
@@ -53,55 +63,57 @@ function buildWheel(activityList) {
     "#ec4899"
   ];
 
-  const gradientParts = activityList.map((activity, index) => {
+  const dividerColor = "#ffffff";
+  const dividerWidth = 1.5;
+  const gradientParts = [];
+
+  activityList.forEach((activity, index) => {
     const start = index * sliceSize;
     const end = start + sliceSize;
     const color = colors[index % colors.length];
-    return `${color} ${start}deg ${end}deg`;
+
+    gradientParts.push(
+      `${dividerColor} ${start}deg ${start + dividerWidth}deg`,
+      `${color} ${start + dividerWidth}deg ${end - dividerWidth}deg`,
+      `${dividerColor} ${end - dividerWidth}deg ${end}deg`
+    );
   });
 
   wheel.style.background = `conic-gradient(${gradientParts.join(", ")})`;
-  wheel.innerHTML = "";
-
-  activityList.forEach((activity, index) => {
-    const label = document.createElement("div");
-    label.classList.add("slice-label");
-    label.textContent = activity.name;
-
-    const angle = index * sliceSize;
-    label.style.transform = `rotate(${angle}deg) translate(110px, -10px)`;
-
-    wheel.appendChild(label);
-  });
+  wheel.innerHTML = `
+    <div class="wheel-center">
+      <span>?</span>
+    </div>
+  `;
 }
 
 function spinWheel() {
-  if (activities.length === 0) return;
+  if (!activities.length) return;
+
+  spinBtn.disabled = true;
 
   const sliceSize = 360 / activities.length;
   const randomIndex = Math.floor(Math.random() * activities.length);
   selectedActivity = activities[randomIndex];
 
   const extraSpins = 360 * 5;
-  const stopAngle = 360 - (randomIndex * sliceSize) - (sliceSize / 2);
+  const targetAngle = 360 - (randomIndex * sliceSize) - (sliceSize / 2);
 
-  currentRotation += extraSpins + stopAngle;
+  currentRotation += extraSpins + targetAngle;
   wheel.style.transform = `rotate(${currentRotation}deg)`;
 
   setTimeout(() => {
-    popupText.textContent = `Go to activity: ${selectedActivity.name}`;
+    popupText.textContent = selectedActivity.title || "No Activity";
     popup.classList.remove("hidden");
+    spinBtn.disabled = false;
   }, 4000);
 }
 
-spinBtn.addEventListener("click", spinWheel);
-
-closeBtn.addEventListener("click", () => {
-  popup.classList.add("hidden");
-});
-
 goBtn.addEventListener("click", () => {
-  if (!selectedActivity) return;
+  if (!selectedActivity || !selectedActivity.id) {
+    alert("No activity available.");
+    return;
+  }
 
   if (selectedActivity.slug) {
     window.location.href = `activity.html?slug=${selectedActivity.slug}`;
@@ -109,5 +121,20 @@ goBtn.addEventListener("click", () => {
     window.location.href = `activities.html?id=${selectedActivity.id}`;
   }
 });
+
+closeBtn.addEventListener("click", () => {
+  popup.classList.add("hidden");
+});
+
+spinBtn.addEventListener("click", spinWheel);
+
+function getPlaceholderActivities() {
+  return [
+    { id: null, title: "No Activity" },
+    { id: null, title: "Try Again" },
+    { id: null, title: "Nothing Loaded" },
+    { id: null, title: "Check Back Later" }
+  ];
+}
 
 loadActivities();
