@@ -4,8 +4,6 @@ import {
   getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-import { getActivities as getLocalActivities } from "./activitiesData.js";
-
 const wheel = document.getElementById("wheel");
 const spinBtn = document.getElementById("spinBtn");
 const popup = document.getElementById("popup");
@@ -26,16 +24,23 @@ async function loadActivities() {
       ...doc.data()
     }));
 
-    firestoreActivities = firestoreActivities.filter(a => a.active !== false);
+    firestoreActivities = firestoreActivities.filter(activity => activity.active !== false);
 
     if (firestoreActivities.length > 0) {
       activities = firestoreActivities;
+    } else if (window.getActivities) {
+      activities = await window.getActivities();
     } else {
-      activities = await getLocalActivities();
+      activities = getPlaceholderActivities();
     }
   } catch (error) {
-    console.error("Firestore failed, using local data:", error);
-    activities = await getLocalActivities();
+    console.error("Firestore failed. Using local activities.", error);
+
+    if (window.getActivities) {
+      activities = await window.getActivities();
+    } else {
+      activities = getPlaceholderActivities();
+    }
   }
 
   if (!activities || activities.length === 0) {
@@ -47,7 +52,6 @@ async function loadActivities() {
 
 function buildWheel(activityList) {
   const sliceSize = 360 / activityList.length;
-
   const colors = [
     "#3b82f6",
     "#06b6d4",
@@ -59,9 +63,9 @@ function buildWheel(activityList) {
     "#ec4899"
   ];
 
-  const gradientParts = [];
   const dividerColor = "#ffffff";
   const dividerWidth = 1.5;
+  const gradientParts = [];
 
   activityList.forEach((activity, index) => {
     const start = index * sliceSize;
@@ -93,7 +97,7 @@ function spinWheel() {
   selectedActivity = activities[randomIndex];
 
   const extraSpins = 360 * 5;
-  const targetAngle = 360 - (randomIndex * sliceSize) - sliceSize / 2;
+  const targetAngle = 360 - (randomIndex * sliceSize) - (sliceSize / 2);
 
   currentRotation += extraSpins + targetAngle;
   wheel.style.transform = `rotate(${currentRotation}deg)`;
