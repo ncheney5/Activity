@@ -11,29 +11,12 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// #region agent log
-const _dl=(loc,msg,data,hid)=>{const p={sessionId:'b7e0b2',location:loc,message:msg,data:data,timestamp:Date.now(),hypothesisId:hid};console.log('[DEBUG]',msg,data);fetch('http://127.0.0.1:7688/ingest/f3c5dd6e-bc8f-4a40-90b5-5f2b4baf9d25',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'b7e0b2'},body:JSON.stringify(p)}).catch(()=>{});};
-_dl('add-activity.js:TOP','module loaded',{authExists:!!auth,authStateReadyExists:typeof auth.authStateReady,currentUserAtLoad:auth.currentUser?.uid||null},'H1,H4');
-// #endregion
-
 const params = new URLSearchParams(window.location.search);
 const editId = params.get("edit");
 
 /** Wait until persisted auth has restored (avoids false "signed out" on cold load). */
 async function getResolvedUser() {
-  // #region agent log
-  _dl('add-activity.js:getResolvedUser','entering getResolvedUser',{hasAuthStateReady:typeof auth.authStateReady==='function',currentUserBefore:auth.currentUser?.uid||null},'H1,H2');
-  // #endregion
-  try {
-    await auth.authStateReady();
-  } catch(e) {
-    // #region agent log
-    _dl('add-activity.js:getResolvedUser','authStateReady THREW',{error:e.message,code:e.code},'H1');
-    // #endregion
-  }
-  // #region agent log
-  _dl('add-activity.js:getResolvedUser','authStateReady resolved',{currentUserAfter:auth.currentUser?.uid||null,currentUserEmail:auth.currentUser?.email||null},'H2');
-  // #endregion
+  await auth.authStateReady();
   return auth.currentUser;
 }
 
@@ -52,28 +35,12 @@ function buildDisplayTime(dateStr, timeStr) {
 
 async function requireAdmin() {
   const user = await getResolvedUser();
-  // #region agent log
-  _dl('add-activity.js:requireAdmin','after getResolvedUser',{userUid:user?.uid||null,userEmail:user?.email||null},'H2');
-  // #endregion
   if (!user) {
-    // #region agent log
-    _dl('add-activity.js:requireAdmin','REDIRECTING - no user',{},'H2');
-    // #endregion
     window.location.href = "sign.html?return=addActivities.html";
     return false;
   }
-  let snap;
-  try {
-    snap = await getDoc(doc(db, "users", user.uid));
-  } catch(e) {
-    // #region agent log
-    _dl('add-activity.js:requireAdmin','Firestore user read FAILED',{error:e.message,code:e.code},'H3');
-    // #endregion
-  }
-  // #region agent log
-  _dl('add-activity.js:requireAdmin','user doc result',{exists:snap?.exists(),role:snap?.exists()?snap.data().role:null},'H3');
-  // #endregion
-  if (!snap || !snap.exists() || snap.data().role !== "admin") {
+  const snap = await getDoc(doc(db, "users", user.uid));
+  if (!snap.exists() || snap.data().role !== "admin") {
     document.querySelector("main").innerHTML = `
       <h1>Not authorized</h1>
       <p>Only administrators can add or edit activities.</p>
