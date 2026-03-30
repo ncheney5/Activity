@@ -2,7 +2,6 @@
  * Admin-only create/edit activity form.
  */
 import { auth, db } from "../firebase.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   doc,
   getDoc,
@@ -16,14 +15,9 @@ const params = new URLSearchParams(window.location.search);
 const editId = params.get("edit");
 
 /** Wait until persisted auth has restored (avoids false "signed out" on cold load). */
-function getResolvedUser() {
-  if (auth.currentUser) return Promise.resolve(auth.currentUser);
-  return new Promise((resolve) => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      unsub();
-      resolve(user);
-    });
-  });
+async function getResolvedUser() {
+  await auth.authStateReady();
+  return auth.currentUser;
 }
 
 function buildDisplayTime(dateStr, timeStr) {
