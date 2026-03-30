@@ -60,6 +60,9 @@ async function renderActivity(activity) {
     </p>
     <p id="time">${escapeHtml(activity.displayTime || "")}</p>
     <img id="image" src="${escapeAttr(activity.image)}" alt="${escapeAttr(activity.title)}">
+    <p id="cost" class="cost">
+    ${activity.cost ? `$${escapeHtml(activity.cost)}` : "Free"}
+    </p>
     <p id="going-line" class="going-line"><span id="detail-going-count"></span></p>
     <div id="detail-rsvp" class="detail-rsvp">
       <button type="button" class="btn-going" id="detail-going">✓ Going</button>
