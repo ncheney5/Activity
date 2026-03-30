@@ -6,93 +6,20 @@
     <title>Fishy Activities | Add Activities</title>
     <link rel="stylesheet" href="styles.css" />
     <style>
-        body {
-            background: #fff;
-            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: #1f2937;
-            margin: 0;
-            min-height: 100vh;
-        }
-
-        header,
-        footer {
-            background-color: #ffffffcc;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 2px 8px rgba(20, 40, 70, .08);
-        }
-
-        main {
-            padding: 1.5rem 0.8rem 2rem;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 1.9rem;
-            margin: 1rem 0 1.5rem;
-            color: #15326c;
-        }
-
         #add-activity-form {
-            max-width: 520px;
-            margin: 0 auto;
-            padding: 20px 24px;
-            border-radius: 14px;
-            background-color: white;
-            box-shadow: 0 16px 35px rgba(50, 78, 130, .18);
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
+            max-width: 480px;
+            margin: 24px auto;
+            text-align: left;
         }
-
         #add-activity-form label {
-            font-weight: 600;
+            grid-column: 1 / -1;
             margin-top: 8px;
         }
-
-        #add-activity-form input,
-        #add-activity-form textarea,
-        #add-activity-form button {
-            border-radius: 8px;
-            border: 1px solid #cbd5e1;
-            padding: 10px 12px;
-            font-size: 1rem;
-            font-family: inherit;
-        }
-
-        #add-activity-form input:focus,
-        #add-activity-form textarea:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, .2);
-        }
-
-        #add-activity-form button {
-            background-color: #2563eb;
-            color: white;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            margin-top: 8px;
-        }
-
-        #add-activity-form button:hover {
-            background-color: #1d4ed8;
-        }
-
         #form-message {
+            grid-column: 1 / -1;
             min-height: 1.5em;
-            color: #1d4ed8;
+            color: var(--color-accent);
             margin-top: 8px;
-        }
-
-        footer p {
-            text-align: center;
-            margin: 0;
-            padding: 1rem 0;
-            font-size: 0.9rem;
-            color: #4b5563;
         }
     </style>
 </head>
