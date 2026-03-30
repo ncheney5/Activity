@@ -603,6 +603,7 @@ main {
 .wheel-page {
     margin: 32px 0 48px;
     padding: 0 4px;
+    justify-self: center;
 }
 
 .wheel-page h1 {
@@ -717,6 +718,7 @@ main {
 }
 
 .popup-content {
+    margin: auto;
     background: white;
     color: var(--color-primary);
     width: 300px;
