@@ -93,12 +93,21 @@ service cloud.firestore {
 
 These are the functions the frontend uses to interact with Firebase.
 
-### **Auth**
+### **Auth** (`public/js/auth.js`)
+
+Uses Firebase Auth with the Google provider (popup flow).
+
 ```javascript
-login(email, password)
-logout()
-onAuthStateChanged(callback)
+signInWithGoogle()           // Promise<UserCredential>
+signOut()                    // Promise<void>
+onAuthStateChanged(callback) // returns unsubscribe function
 ```
+
+#### Firebase Console: enable Google sign-in
+
+1. Open [Firebase Console](https://console.firebase.google.com/) → project **cit170-activity-votes** → **Build** → **Authentication** → **Sign-in method**.
+2. Enable **Google** and set a support email if prompted.
+3. Under **Authentication** → **Settings** → **Authorized domains**, ensure your hosting domain(s) and `localhost` are listed so OAuth redirects work locally and in production.
 
 ### **Users**
 ```javascript
