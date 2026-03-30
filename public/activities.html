@@ -32,7 +32,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="activities.html">Activities</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a class="sign-in" href="sign.html">Sign In</a></li>
+                <li class="nav-auth-slot"></li>
             </ul>
         </nav>
     </header>
@@ -40,9 +40,8 @@
    <main>
     <section class="activities-section">
 
-        <!-- Quick-nav buttons -->
-    <div class="quick-nav">
-        <a href="addactivities.html" class="quick-nav-btn">
+        <div class="quick-nav">
+        <a href="addActivities.html" class="quick-nav-btn quick-nav-add" hidden>
             <span class="nav-icon">＋</span>
             <div class="nav-label">
                 Add Activity
@@ -61,7 +60,7 @@
 
         <div class="activities-header">
                 <div class="filter-wrapper">
-                <button class="filter-btn" onclick="toggleFilters()">☰ Filter</button>
+                <button type="button" class="filter-btn" onclick="toggleFilters()">☰ Filter</button>
 
                     <div id="filter-panel" class="filter-panel hidden">
                         <label>
@@ -96,155 +95,14 @@
             </div>
 
         </section>
-        <div class="activity-list" id="activity-list">
-            <!-- Cards are injected here by JS -->
-        </div>
-    </section>
     </main>
 
     <footer>
         <p>Copyright &copy; 2026 Fishy Activities</p>
     </footer>
 
-    <!-- Shared data layer (swap internals for Firestore when ready) -->
-    <script src="activitiesData.js"></script>
-    <script>
-        // ── Render ──────────────────────────────────────────────────────
-        // Track going counts in memory (will come from Firestore later)
-        const goingCounts = {};
-
-        function renderCards(activities) {
-            const list = document.getElementById("activity-list");
-
-            // Seed counts from data
-            activities.forEach(a => goingCounts[a.id] = a.goingCount);
-
-            list.innerHTML = activities.map((activity, index) => `
-                <div class="activity-card"
-                    data-free="true"
-                    data-date="${activity.date}"
-                    data-popularity="${activity.goingCount}"
-                    onclick="goToActivity('${activity.id}')">
-                    <img src="${activity.image}" alt="${activity.title}">
-                    <div class="card-body">
-                        <h3 class="card-title">${activity.title}</h3>
-                        <p class="card-time">${activity.displayTime}</p>
-                        <p class="card-description">${activity.description}</p>
-                    </div>
-                    <div class="card-actions" onclick="event.stopPropagation()">
-                        <button class="btn-going"    onclick="rsvp(this, 'going',    'status-${index}', '${activity.id}')" title="I'm going">✓</button>
-                        <button class="btn-notgoing" onclick="rsvp(this, 'notgoing', 'status-${index}', '${activity.id}')" title="Not going">✕</button>
-                        <span class="rsvp-status" id="status-${index}"></span>
-                        <span class="going-count" id="count-${activity.id}">${activity.goingCount > 0 ? activity.goingCount + ' going' : ''}</span>
-                    </div>
-                </div>
-            `).join("");
-        }
-
-        // ── Init ────────────────────────────────────────────────────────
-        getActivities().then(renderCards);
-
-        // ── Navigation ──────────────────────────────────────────────────
-        function goToActivity(activityId) {
-            window.location.href = `activitiesdescription.html?activity=${activityId}`;
-        }
-
-        // ── RSVP ────────────────────────────────────────────────────────
-        function rsvp(btn, type, statusId, activityId) {
-            const actions   = btn.closest(".card-actions");
-            const goingBtn  = actions.querySelector(".btn-going");
-            const notBtn    = actions.querySelector(".btn-notgoing");
-            const status    = document.getElementById(statusId);
-            const countEl   = document.getElementById("count-" + activityId);
-
-            const wasGoing   = goingBtn.classList.contains("active");
-            const isTogglingOff = btn.classList.contains("active");
-
-            // Update count based on action
-            if (isTogglingOff) {
-                // Un-RSVPing
-                if (type === "going") goingCounts[activityId]--;
-                btn.classList.remove("active");
-                status.textContent = "";
-            } else {
-                // Switching from going → not going: decrement
-                if (type === "notgoing" && wasGoing) goingCounts[activityId]--;
-                // Switching to going: increment
-                if (type === "going") goingCounts[activityId]++;
-
-                goingBtn.classList.remove("active");
-                notBtn.classList.remove("active");
-                btn.classList.add("active");
-
-                if (type === "going") {
-                    status.textContent = "Going!";
-                    status.style.color = "#2e7d32";
-                } else {
-                    status.textContent = "Not going";
-                    status.style.color = "#c62828";
-                }
-            }
-
-            // Update the count display
-            // FIRESTORE SWAP: updateDoc(doc(db,"activities",activityId), { goingCount: increment(delta) })
-            const count = goingCounts[activityId];
-            countEl.textContent = count > 0 ? count + " going" : "";
-        }
-        // Filter Button
-        function toggleFilters() {
-            document.getElementById("filter-panel").classList.toggle("hidden");
-        }
-        const freeOnly = document.getElementById("freeOnly");
-        const timeFilter = document.getElementById("timeFilter");
-        const sortBy = document.getElementById("sortBy");
-
-        freeOnly.addEventListener("change", applyFilters);
-        timeFilter.addEventListener("change", applyFilters);
-        sortBy.addEventListener("change", applyFilters);
-
-        function applyFilters() {
-            const cards = Array.from(document.querySelectorAll(".activity-card"));
-            const list = document.querySelector(".activity-list");
-
-            let filtered = cards.filter(card => {
-                const isFree = card.dataset.free === "true";
-                const date = new Date(card.dataset.date);
-                const now = new Date();
-
-                // Free filter
-                if (freeOnly.checked && !isFree) return false;
-
-                // Time filter
-                if (timeFilter.value === "today") {
-                    if (date.toDateString() !== now.toDateString()) return false;
-                }
-
-                if (timeFilter.value === "week") {
-                    const diff = (date - now) / (1000 * 60 * 60 * 24);
-                    if (diff < 0 || diff > 7) return false;
-                }
-
-                return true;
-            });
-
-            // Sorting
-            if (sortBy.value === "soonest") {
-                filtered.sort((a, b) =>
-                    new Date(a.dataset.date) - new Date(b.dataset.date)
-                );
-            }
-
-            if (sortBy.value === "popular") {
-                filtered.sort((a, b) =>
-                    b.dataset.popularity - a.dataset.popularity
-                );
-            }
-
-            // Re-render
-            list.innerHTML = "";
-            filtered.forEach(card => list.appendChild(card));
-        }
-    </script>
+    <script type="module" src="js/auth-ui.js"></script>
+    <script type="module" src="js/activities-list.js"></script>
 
 </body>
 </html>

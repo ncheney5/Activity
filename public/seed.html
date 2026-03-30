@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seed Firestore | Fishy Activities</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div id="hero">
+      <img class="hero-img" src="images/hero.jpeg" alt="">
+      <a id="logo" href="index.html"><img src="images/logo.png" alt="Logo"></a>
+    </div>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="activities.html">Activities</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="nav-auth-slot"></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="seed-page">
+    <h1>Seed sample activities</h1>
+    <p>Admin only. Writes the six default activities to Firestore with fixed document IDs (only if the collection is empty).</p>
+    <p id="seed-status"></p>
+    <button type="button" id="seed-btn">Run seed</button>
+    <p><a href="activities.html">Back to activities</a></p>
+  </main>
+  <footer><p>Copyright &copy; 2026 Fishy Activities</p></footer>
+  <script type="module" src="js/auth-ui.js"></script>
+  <script type="module" src="js/seed-page.js"></script>
+</body>
+</html>

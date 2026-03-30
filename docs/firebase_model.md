@@ -1,45 +1,30 @@
-# FIRESTORE COLLECTION SCHEMAS
+# Firestore data model (canonical)
 
-## 1. Collection: activities
-- name — string
-- date — string o timestamp
-- time — string
-- location — string
-- cost — number
-- description — string
-- createdBy — string (uid)
-- source — string
+This matches the deployed security rules and [`public/js/`](../public/js/) modules.
 
-### Relationships
-- createdBy → users/{uid}
-- One activity can have many RSVPs
+## `users`
 
-## 2. Collection: users
-- uid — string (doc ID)
-- displayName — string
-- email — string
-- photoURL — string
-- role — string ("user" o "admin")
+- Document ID: Firebase Auth UID.
+- Fields: `displayName`, `email`, `photoURL`, `role` (`user` | `admin`), `createdAt`.
 
-### Relationships
-- A user can create activities (if admin)
-- A user can have many RSVPs
-- uid connects to rsvps.uid
+## `activities`
 
-## 3. Collection: rsvps
-- activityId — string
-- uid — string
-- status — string ("yes", "no", "maybe")
+- Document ID: auto-ID from `addDoc`, or fixed IDs when seeded.
+- Fields: `title`, `description`, `location`, `date`, `time`, `displayTime`, `image`, `cost`, `goingCount` (optional), `active`, `createdBy`, `createdAt`, `updatedBy`, `updatedAt`.
 
-### Relationships
-- activityId → activities/{id}
-- uid → users/{uid}
-- Many-to-many relationship
+## `rsvps`
 
-### Important rule
-- Only one RSVP per user per activity
+- Document ID: `{uid}_{activityId}`.
+- Fields: `ownerUid`, `activityId`, `status` (`going` | `not_going`), `updatedAt`.
 
-## Diagram
-users (1) ----< (N) activities
-   │                │
-   │                └───< (N) rsvps >─── (N) users
+## Relationships
+
+```mermaid
+flowchart LR
+  users[users]
+  activities[activities]
+  rsvps[rsvps]
+  users -->|creates if admin| activities
+  users -->|owns| rsvps
+  activities -->|referenced by activityId| rsvps
+```

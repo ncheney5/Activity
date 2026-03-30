@@ -126,6 +126,96 @@ nav a.sign-in:hover {
     background-color: #a8390f;
 }
 
+nav ul li.nav-auth-slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-light);
+    font-size: 0.85rem;
+}
+
+.nav-user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.nav-user-initial {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: white;
+}
+
+.nav-user-name {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nav-sign-out {
+    font-family: inherit;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    color: var(--color-light);
+    border-radius: 7px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.nav-sign-out:hover {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.card-maps {
+    font-size: 0.78rem;
+    margin: 0.15rem 0 0.35rem;
+}
+
+.card-maps a {
+    color: var(--color-accent);
+    text-decoration: underline;
+}
+
+.seed-page {
+    margin: 24px auto 40px;
+    padding: 0 12px;
+    text-align: center;
+}
+
+.seed-page button {
+    font-family: 'Electrolize', sans-serif;
+    background: var(--color-primary);
+    color: var(--color-light);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+.seed-page button:hover {
+    background: var(--color-accent);
+}
+
 h1 {
     color: var(--color-accent);
     font-size: 1.4rem;
@@ -308,6 +398,14 @@ main {
     font-size: 2rem;
     line-height: 1;
     flex-shrink: 0;
+}
+
+.quick-nav-btn .nav-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    line-height: 1.25;
 }
 
 .filter-wrapper {

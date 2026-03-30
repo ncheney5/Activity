@@ -3,8 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fishy Activities | Home</title>
+    <title>Fishy Activities | Sign In</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+        .sign-main {
+            margin: 32px auto 48px;
+            padding: 24px;
+            max-width: 420px;
+            text-align: center;
+        }
+        .sign-main h1 {
+            margin-bottom: 16px;
+        }
+        .sign-main p {
+            margin-bottom: 20px;
+        }
+        #google-sign-in {
+            font-family: 'Electrolize', sans-serif;
+            background-color: var(--color-accent);
+            color: var(--color-light);
+            border: none;
+            border-radius: 10px;
+            padding: 14px 28px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        #google-sign-in:hover {
+            background-color: #a8390f;
+        }
+        #sign-error {
+            color: #c62828;
+            font-size: 0.9rem;
+            margin-top: 12px;
+            min-height: 1.2em;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -20,14 +53,24 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="activities.html">Activities</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a class="sign-in" href="sign.html">Sign In</a></li>
+                <li class="nav-auth-slot"></li>
             </ul>
         </nav>
     </header>
 
+    <main class="sign-main">
+        <h1>Sign in</h1>
+        <p>Use your Google account to RSVP and sync activities.</p>
+        <button type="button" id="google-sign-in">Continue with Google</button>
+        <p id="sign-error"></p>
+        <p><a href="activities.html">Back to activities</a></p>
+    </main>
+
     <footer>
-        <p>Copyright © 2026 Fishy Activities</p>
+        <p>Copyright &copy; 2026 Fishy Activities</p>
     </footer>
 
+    <script type="module" src="js/auth-ui.js"></script>
+    <script type="module" src="js/sign-page.js"></script>
 </body>
 </html>

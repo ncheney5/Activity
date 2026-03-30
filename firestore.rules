@@ -36,16 +36,16 @@ service cloud.firestore {
     }
 
     match /activities/{activityId} {
-      // Any authenticated user can read
-      allow read: if isSignedIn();
+      // Public read so the feed works before sign-in (RSVP still requires auth)
+      allow read: if true;
 
       // Only admins can write
       allow create, update, delete: if isAdmin();
     }
 
     match /rsvps/{rsvpId} {
-      // Any authenticated user can read all RSVPs
-      allow read: if isSignedIn();
+      // Public read so "going" counts work for everyone (uids are visible; acceptable for class scope)
+      allow read: if true;
 
       // User can create only their own RSVP
       allow create: if isSignedIn()
