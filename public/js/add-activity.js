@@ -14,6 +14,12 @@ import {
 const params = new URLSearchParams(window.location.search);
 const editId = params.get("edit");
 
+/** Wait until persisted auth has restored (avoids false "signed out" on cold load). */
+async function getResolvedUser() {
+  await auth.authStateReady();
+  return auth.currentUser;
+}
+
 function buildDisplayTime(dateStr, timeStr) {
   if (!dateStr) return "";
   const d = new Date(`${dateStr}T${timeStr || "12:00"}:00`);
@@ -28,7 +34,7 @@ function buildDisplayTime(dateStr, timeStr) {
 }
 
 async function requireAdmin() {
-  const user = auth.currentUser;
+  const user = await getResolvedUser();
   if (!user) {
     window.location.href = "sign.html?return=addActivities.html";
     return false;
@@ -78,7 +84,8 @@ document.getElementById("add-activity-form").addEventListener("submit", async (e
   if (!image) image = "images/hero.jpeg";
 
   const displayTime = buildDisplayTime(date, time);
-  const user = auth.currentUser;
+  let user = auth.currentUser;
+  if (!user) user = await getResolvedUser();
 
   const basePayload = {
     title,
@@ -93,6 +100,10 @@ document.getElementById("add-activity-form").addEventListener("submit", async (e
   };
 
   const msg = document.getElementById("form-message");
+  if (!user) {
+    msg.textContent = "Session expired. Sign in again.";
+    return;
+  }
   msg.textContent = "Saving…";
 
   try {

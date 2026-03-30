@@ -55,7 +55,11 @@ function renderCards(activities, rsvpMap) {
                 <h3 class="card-title">${escapeHtml(activity.title)}</h3>
                 <p class="card-time">${escapeHtml(activity.displayTime || "")}</p>
                 <p class="card-maps"><a href="${mapsUrl(activity.location)}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Open in Maps</a></p>
-                <p class="card-description">${escapeHtml(activity.description || "")}</p>
+                <p class="card-cost">${free
+                  ? '<span class="cost-badge cost-free">Free</span>'
+                  : `<span class="cost-badge cost-paid">$${Number(activity.cost).toFixed(2)}</span>`
+          }</p>
+        <p class="card-description">${escapeHtml(activity.description || "")}</p>
             </div>
             <div class="card-actions" onclick="event.stopPropagation()">
                 <button type="button" class="btn-going${goingActive}" data-action="going" data-id="${activity.id}" data-idx="${index}" title="I'm going">✓</button>
