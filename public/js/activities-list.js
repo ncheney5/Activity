@@ -10,6 +10,8 @@ import {
   setUserRsvp
 } from "./rsvp-service.js";
 
+let ALL_ACTIVITIES = [];
+let CURRENT_RSVP_MAP = {};
 const goingCounts = {};
 const unsubByActivity = {};
 
@@ -188,24 +190,23 @@ function toggleFilters() {
 window.toggleFilters = toggleFilters;
 
 function applyFilters() {
-  const freeOnly = document.getElementById("freeOnly");
-  const timeFilter = document.getElementById("timeFilter");
-  const sortBy = document.getElementById("sortBy");
-  const cards = Array.from(document.querySelectorAll(".activity-card"));
-  const list = document.getElementById("activity-list");
+  const freeOnly = document.getElementById("freeOnly").checked;
+  const timeFilter = document.getElementById("timeFilter").value;
+  const sortBy = document.getElementById("sortBy").value;
 
-  let filtered = cards.filter((card) => {
-    const isFree = card.dataset.free === "true";
-    const date = new Date(card.dataset.date);
-    const now = new Date();
+  const now = new Date();
 
-    if (freeOnly.checked && !isFree) return false;
+  let filtered = ALL_ACTIVITIES.filter((activity) => {
+    const isFree = (activity.cost ?? 0) === 0;
+    const date = new Date(activity.date);
 
-    if (timeFilter.value === "today") {
+    if (freeOnly && !isFree) return false;
+
+    if (timeFilter === "today") {
       if (date.toDateString() !== now.toDateString()) return false;
     }
 
-    if (timeFilter.value === "week") {
+    if (timeFilter === "week") {
       const diff = (date - now) / (1000 * 60 * 60 * 24);
       if (diff < 0 || diff > 7) return false;
     }
@@ -213,20 +214,18 @@ function applyFilters() {
     return true;
   });
 
-  if (sortBy.value === "soonest") {
-    filtered.sort(
-      (a, b) => new Date(a.dataset.date) - new Date(b.dataset.date)
-    );
+  if (sortBy === "soonest") {
+    filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
   }
 
-  if (sortBy.value === "popular") {
+  if (sortBy === "popular") {
     filtered.sort(
       (a, b) =>
-        Number(b.dataset.popularity || 0) - Number(a.dataset.popularity || 0)
+        (b.goingCount || 0) - (a.goingCount || 0)
     );
   }
 
-  filtered.forEach((card) => list.appendChild(card));
+  renderCards(filtered, CURRENT_RSVP_MAP);
 }
 
 async function boot() {
@@ -239,8 +238,9 @@ async function boot() {
     }
   }
 
-  const activities = await getActivities();
-  renderCards(activities, rsvpMap);
+  ALL_ACTIVITIES = await getActivities();
+  CURRENT_RSVP_MAP = rsvpMap;
+  renderCards(ALL_ACTIVITIES, CURRENT_RSVP_MAP);
 
   const freeOnly = document.getElementById("freeOnly");
   const timeFilter = document.getElementById("timeFilter");
@@ -252,8 +252,8 @@ async function boot() {
   onAuthStateChanged(auth, async () => {
     try {
       const map = auth.currentUser ? await getUserRsvpMap() : {};
-      const acts = await getActivities();
-      renderCards(acts, map);
+      CURRENT_RSVP_MAP = map;
+      renderCards(ALL_ACTIVITIES, CURRENT_RSVP_MAP);
     } catch (e) {
       console.warn(e);
     }
