@@ -1,12 +1,4 @@
-## Quick start (developers)
-
-1. Clone the repo and open `public/firebase.js`.
-2. In [Firebase Console](https://console.firebase.google.com/) → **Project settings** → **Your apps**, copy the Web app config into `firebase.js` (replace `YOUR_API_KEY`, `YOUR_MESSAGING_SENDER_ID`, `YOUR_APP_ID`).
-3. **Authentication** → enable **Google** provider; add **Authorized domains** (your `*.web.app` / custom domain and `localhost` for local testing).
-4. Deploy Firestore rules and indexes: `firebase deploy --only firestore` (requires Firebase CLI).
-5. Sign in once, then in Firestore set `users/{yourUid}.role` to `"admin"` to use **Add Activity**, **seed.html**, and deletes.
-
----
+# Link: https://cit170-activity-votes.web.app/
 
 ## Current State Assessment
 
