@@ -5,12 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fishy Activities | Add Activities</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+        #add-activity-form {
+            max-width: 480px;
+            margin: 24px auto;
+            text-align: left;
+        }
+        #add-activity-form label {
+            grid-column: 1 / -1;
+            margin-top: 8px;
+        }
+        #form-message {
+            grid-column: 1 / -1;
+            min-height: 1.5em;
+            color: var(--color-accent);
+            margin-top: 8px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <div id="hero">
             <img class="hero-img" src="images/hero.jpeg" alt="BYU-Idaho Campus">
-            <a id="logo" href="main.html" aria-label="Fishy Activities Home">
+            <a id="logo" href="index.html" aria-label="Fishy Activities Home">
                 <img src="images/logo.png" alt="Fishy Activities Logo" />
             </a>
         </div>
@@ -20,19 +37,19 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="activities.html">Activities</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a class="sign-in" href="sign.html">Sign In</a></li>
+                <li class="nav-auth-slot"></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <h1>Add an Activity</h1>
-        <form id="add-activity-form" action="submit_activity.php" method="POST">
+        <form id="add-activity-form">
             <label for="activity-name">Activity Name:</label>
             <input type="text" id="activity-name" name="activity_name" required />
 
             <label for="activity-description">Description:</label>
-            <textarea id="activity-description" name="activity_description" required></textarea>
+            <textarea id="activity-description" name="activity_description" required rows="4"></textarea>
 
             <label for="activity-location">Location:</label>
             <input type="text" id="activity-location" name="activity_location" required />
@@ -40,16 +57,26 @@
             <label for="activity-date">Date:</label>
             <input type="date" id="activity-date" name="activity_date" required />
 
-            <label for="activity-time">Time:</label>
-            <input type="text" id="activity-time" name="activity_time" required />
+            <label for="activity-time">Time (e.g. 14:30):</label>
+            <input type="text" id="activity-time" name="activity_time" placeholder="18:00" required />
 
-            <button type="submit">Add Activity</button>
+            <label for="activity-cost">Cost (USD, 0 = free):</label>
+            <input type="number" id="activity-cost" name="activity_cost" min="0" step="0.01" value="0" />
+
+            <label for="activity-image">Image URL (optional):</label>
+            <input type="url" id="activity-image" name="activity_image" placeholder="https://... or images/hero.jpeg" />
+
+            <button type="submit">Save Activity</button>
+            <p id="form-message"></p>
         </form>
     </main>
     
     <footer>
-        <p>Copyright © 2026 Fishy Activities</p>
+        <p>Copyright &copy; 2026 Fishy Activities</p>
     </footer>
+
+    <script type="module" src="js/auth-ui.js"></script>
+    <script type="module" src="js/add-activity.js"></script>
 
 </body>
 </html>

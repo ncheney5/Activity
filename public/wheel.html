@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fishy Activities | Spin Wheel</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="activitiesData.js"></script>
     <script type="module" src="wheelscript.js" defer></script>
 </head>
 <body>
@@ -23,7 +22,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="activities.html">Activities</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a class="sign-in" href="sign.html">Sign In</a></li>
+                <li class="nav-auth-slot"></li>
             </ul>
         </nav>
     </header>
@@ -37,21 +36,23 @@
             <div id="wheel" class="wheel"></div>
         </div>
 
-        <button id="spinBtn">Spin</button>
+        <button id="spinBtn" type="button">Spin</button>
     </main>
 
     <div id="popup" class="popup hidden">
         <div class="popup-content">
             <h2>You got:</h2>
             <p id="popupText"></p>
-            <button id="goBtn">Go to Activity</button>
-            <button id="closeBtn">Close</button>
+            <button type="button" id="goBtn">Go to Activity</button>
+            <button type="button" id="closeBtn">Close</button>
         </div>
     </div>
 
     <footer>
         <p>&copy; 2026 Fishy Activities</p>
     </footer>
+
+    <script type="module" src="js/auth-ui.js"></script>
 
 </body>
 </html>

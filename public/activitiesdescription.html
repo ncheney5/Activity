@@ -6,7 +6,7 @@
     <title>Fishy Activities | Description</title>
     <link rel="stylesheet" href="styles.css" />
     <style>
-        main {
+        main#content {
             max-width: 800px;
             margin: 40px auto;
             padding: 20px;
@@ -29,6 +29,11 @@
             margin: 4px 0;
         }
 
+        .maps-link {
+            color: var(--color-accent);
+            text-decoration: underline;
+        }
+
         #image {
             width: 70%;
             max-width: 300px;
@@ -41,11 +46,62 @@
             font-size: 1rem;
             line-height: 1.6;
             color: #444;
+            text-align: left;
+            margin-top: 16px;
         }
 
         #not-found {
             margin: 60px auto;
             color: var(--color-accent);
+        }
+
+        .going-line {
+            font-size: 0.95rem;
+            color: #2e7d32;
+            margin: 8px 0;
+        }
+
+        .detail-rsvp {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 16px 0;
+            flex-wrap: wrap;
+        }
+
+        .detail-rsvp .btn-going,
+        .detail-rsvp .btn-notgoing {
+            width: auto;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .admin-actions {
+            margin-top: 24px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .button-link {
+            display: inline-block;
+            padding: 10px 16px;
+            background: var(--color-primary);
+            color: var(--color-light);
+            text-decoration: none;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .button-danger {
+            font-family: inherit;
+            padding: 10px 16px;
+            background: #c62828;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -64,47 +120,21 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="activities.html">Activities</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a class="sign-in" href="sign.html">Sign In</a></li>
+                <li class="nav-auth-slot"></li>
             </ul>
         </nav>
     </header>
 
     <main id="content">
-        <!-- Populated by JS once data resolves -->
+        <p>Loading…</p>
     </main>
 
     <footer>
         <p>Copyright &copy; 2026 Fishy Activities</p>
     </footer>
 
-    <!-- Shared data layer (swap internals for Firestore when ready) -->
-    <script src="activitiesData.js"></script>
-    <script>
-        const params     = new URLSearchParams(window.location.search);
-        const activityId = params.get("activity");
-
-        getActivityById(activityId).then((activity) => {
-            const content = document.getElementById("content");
-
-            if (!activity) {
-                content.innerHTML = `
-                    <p id="not-found">Activity not found. <a href="activities.html">Go back to activities.</a></p>
-                `;
-                return;
-            }
-
-            // Update page title
-            document.title = `Fishy Activities | ${activity.title}`;
-
-            content.innerHTML = `
-                <h1 id="title">${activity.title}</h1>
-                <h2 id="location">${activity.location}</h2>
-                <h2 id="time">${activity.displayTime}</h2>
-                <img id="image" src="${activity.image}" alt="${activity.title}">
-                <p id="description">${activity.description}</p>
-            `;
-        });
-    </script>
+    <script type="module" src="js/auth-ui.js"></script>
+    <script type="module" src="js/activity-detail.js"></script>
 
 </body>
 </html>

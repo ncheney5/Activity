@@ -1,4 +1,5 @@
-//import { db } from "./firebase.js";
+import { db } from "./firebase.js";
+import { getActivities } from "./js/activitiesData.js";
 import {
   collection,
   getDocs
@@ -28,19 +29,12 @@ async function loadActivities() {
 
     if (firestoreActivities.length > 0) {
       activities = firestoreActivities;
-    } else if (window.getActivities) {
-      activities = await window.getActivities();
     } else {
-      activities = getPlaceholderActivities();
+      activities = await getActivities();
     }
   } catch (error) {
     console.error("Firestore failed. Using local activities.", error);
-
-    if (window.getActivities) {
-      activities = await window.getActivities();
-    } else {
-      activities = getPlaceholderActivities();
-    }
+    activities = await getActivities();
   }
 
   if (!activities || activities.length === 0) {
@@ -116,9 +110,11 @@ goBtn.addEventListener("click", () => {
   }
 
   if (selectedActivity.slug) {
-    window.location.href = `activity.html?slug=${selectedActivity.slug}`;
+    window.location.href = `activitiesdescription.html?activity=${encodeURIComponent(selectedActivity.slug)}`;
+  } else if (selectedActivity.id) {
+    window.location.href = `activitiesdescription.html?activity=${encodeURIComponent(selectedActivity.id)}`;
   } else {
-    window.location.href = `activities.html?id=${selectedActivity.id}`;
+    window.location.href = "activities.html";
   }
 });
 
