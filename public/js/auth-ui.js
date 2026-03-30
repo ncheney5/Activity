@@ -76,6 +76,10 @@ export function initAuthNav() {
   if (!slot) return;
 
   onAuthStateChanged(auth, async (user) => {
+    // #region agent log
+    const _dlA=(loc,msg,data,hid)=>{const p={sessionId:'b7e0b2',location:loc,message:msg,data:data,timestamp:Date.now(),hypothesisId:hid};console.log('[DEBUG]',msg,data);fetch('http://127.0.0.1:7688/ingest/f3c5dd6e-bc8f-4a40-90b5-5f2b4baf9d25',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'b7e0b2'},body:JSON.stringify(p)}).catch(()=>{});};
+    _dlA('auth-ui.js:onAuthStateChanged','auth state changed',{userUid:user?.uid||null,userEmail:user?.email||null,page:window.location.pathname},'H5');
+    // #endregion
     if (!user) {
       renderSignedOut(slot);
       return;
