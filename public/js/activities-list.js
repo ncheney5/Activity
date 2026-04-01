@@ -94,6 +94,9 @@ function renderCards(activities, rsvpMap) {
         `.activity-card[data-activity-id="${activity.id}"]`
       );
       if (card) card.dataset.popularity = String(n);
+      if (document.getElementById("sortBy").value === "popular") {
+        applyFilters();
+      }
     });
   });
 
