@@ -221,7 +221,7 @@ function applyFilters() {
   if (sortBy === "popular") {
     filtered.sort(
       (a, b) =>
-        (b.goingCount || 0) - (a.goingCount || 0)
+        (goingCounts[b.id] || 0) - (goingCounts[a.id] || 0)
     );
   }
 
